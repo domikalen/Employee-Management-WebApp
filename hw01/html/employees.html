@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evidence zaměstnanců - Přehled zaměstnanců</title>
+    <link rel="stylesheet" href="/hw02/css/general.css">
+    <link rel="stylesheet" href="/hw02/css/employees.css">
 </head>
 <body>
-    
+    <header>
+        <h1>Přehled zaměstnanců</h1>
+        <nav>
+            <button onclick="location.href='index.html'">Titulní strana</button>
+            <button onclick="location.href='employees.html'">Přehled zaměstnanců</button>
+            <button onclick="location.href='employee_detail.html'">Detail zaměstnance</button>
+            <button onclick="location.href='employee_accounts.html'">Účty zaměstnance</button>
+            <button onclick="location.href='error.html'">Chyba</button>
+        </nav>
+    </header>
+
     <main>
         <section>
             <h2>Seznam zaměstnanců</h2>
             <ul>
                 <li>
-                    <img src="images/tokaev_tigr.jpeg" alt="Tokaev Tigr" width="50">
-                    <strong>Tokaev Tigr</strong>, Pozice: Manažer, Email: president@example.com, <a href="employee_detail.html">Detail</a>
+                    <img src="/images/karlos_huares.jpg" alt="Karlos Huares" width="50">
+                    <strong>Karlos Huares</strong> - Ředitel
                 </li>
                 <li>
-                    <img src="images/richard_gere.jpeg" alt="Richard Gere" width="50">
-                    <strong>Richard Gere</strong>, Pozice: Asistent, Email: richard@example.com, <a href="employee_detail.html">Detail</a>
-                </li>
-                <li>
-                    <img src="images/karlos_huares.jpeg" alt="Karlos Huares" width="50">
-                    <strong>Karlos Huares</strong>, Pozice: Vývojář, Email: karlos@example.com, <a href="employee_detail.html">Detail</a>
+                    <img src="/images/richard_gere.jpg" alt="Richard Gere" width="50">
+                    <strong>Richard Gere</strong> - Manažer
                 </li>
             </ul>
         </section>
