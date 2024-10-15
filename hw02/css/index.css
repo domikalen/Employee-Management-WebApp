@@ -5,14 +5,14 @@ main {
 }
 
 section {
-    width: 100%; 
-    padding: 10px;
+    width: 100%;
+    padding: var(--padding-base);
 }
 
 h2 {
-    color: #424242;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px; 
+    color: var(--main-text-color);
+    border-bottom: 0.125rem solid var(--table-border-color);
+    padding-bottom: var(--padding-small);
 }
 
 ul {
@@ -20,13 +20,16 @@ ul {
 }
 
 li {
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    padding: 15px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding-base);
 }
 
 img {
-    border-radius: 50%; 
-    margin-right: 15px; 
+    border-radius: 50%;
+    margin-right: var(--padding-small);
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
 }

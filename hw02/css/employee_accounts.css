@@ -1,11 +1,11 @@
 ul {
-    padding: 0;  
+    padding: 0;
 }
 
 li {
-    border: 1px solid #e0e0e0; 
-    border-radius: 4px; 
-    padding: 10px;  
-    margin: 10px 0;  
-    background-color: #fafafa;  
+    border: 0.063rem solid var(--table-border-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding-base);
+    margin: var(--padding-small) 0;
+    background-color: #fafafa;
 }
