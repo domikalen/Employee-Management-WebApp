@@ -4,6 +4,7 @@ namespace App;
 
 use App\Controllers\EmployeesController;
 use App\Controllers\EmployeesDetailController;
+use App\Controllers\EmployeeAccountsController;
 
 class Router
 {
@@ -33,6 +34,11 @@ class Router
                 $contr = new EmployeesDetailController($this->twig);
                 $eid = isset($_GET['id']) ? (int)$_GET['id'] : 0;
                 $contr->employeeDetail($eid);
+                break;
+            case 'employee_accounts':
+                $contr = new EmployeeAccountsController($this->twig);
+                $eid = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+                $contr->employeeAccounts($eid);
                 break;
             case 'error':
                 echo $this->twig->render('error.html.twig');
