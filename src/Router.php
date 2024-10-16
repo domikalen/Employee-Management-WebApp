@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Controllers\EmployeesController;
+use App\Controllers\EmployeesDetailController;
 
 class Router
 {
@@ -29,11 +30,9 @@ class Router
                 $contr->employees();
                 break;
             case 'employee_detail':
-                if ($id && $employee = $db->getEmployee($id)) {
-                    echo $this->twig->render('employee_detail.html.twig', ['employee' => $employee]);
-                } else {
-                    echo $this->twig->render('error.html.twig', ['message' => 'Employee not found']);
-                }
+                $contr = new EmployeesDetailController($this->twig);
+                $eid = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+                $contr->employeeDetail($eid);
                 break;
             case 'error':
                 echo $this->twig->render('error.html.twig');
