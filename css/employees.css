@@ -6,7 +6,12 @@ ul {
 ul li {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: var(--padding-small) 0;
+    padding: var(--padding-base);
+    border: 0.1rem solid var(--table-border-color);
+    border-radius: var(--border-radius);
+    background-color: #fafafa;
 }
 
 ul li img {
@@ -15,4 +20,18 @@ ul li img {
     height: 3rem;
     object-fit: cover;
     margin-right: var(--padding-small);
+}
+
+ul li strong {
+    margin-right: auto;
+}
+
+ul li a {
+    margin-left: 1.5rem;
+    color: var(--highlight-color);
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
 }

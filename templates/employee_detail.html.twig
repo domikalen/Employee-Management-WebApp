@@ -4,6 +4,7 @@
 
 {% block content %}
     <section>
+        <img src="{{ employee.image }}" alt="{{ employee.name }}" width="200">
         <h2>{{ employee.name }}</h2>
         <p><strong>Funkce:</strong> {{ employee.role }}</p>
         <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
