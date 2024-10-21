@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Detail zaměstnance{% endblock %}
+
+{% block content %}
+    <section class="employee-detail">
+        <img src="{{ employee.image }}" alt="{{ employee.name }}">
+        <h2>{{ employee.name }}</h2>
+        <p><strong>Funkce:</strong> {{ employee.role }}</p>
+        <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
+        <h3>Popis:</h3>
+        <p>{{ employee.description }}</p>
+    </section>
+{% endblock %}
