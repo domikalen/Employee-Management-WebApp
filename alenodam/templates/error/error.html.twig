@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Error - {{ status_code }}{% endblock %}
+
+{% block content %}
+    <h1>An error occurred ({{ status_code }})</h1>
+    <p>{{ status_text }}</p>
+
+    {% if status_code == 500 %}
+        <p>Sorry, there was a server error. Please try again later.</p>
+    {% elseif status_code == 403 %}
+        <p>You do not have permission to access this resource.</p>
+    {% elseif status_code == 404 %}
+        <p>Oops! The page you are looking for cannot be found.</p>
+        <a href="{{ path('employee_index') }}">Return to the homepage</a>
+    {% else %}
+        <p>An unexpected error occurred. Please try again or contact support.</p>
+    {% endif %}
+{% endblock %}

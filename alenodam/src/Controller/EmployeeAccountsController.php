@@ -27,7 +27,7 @@ class EmployeeAccountsController extends AbstractController {
                 'accounts' => $accounts
             ]);
         } else {
-            return $this->render('error/index.html.twig', [
+            return $this->render('error/error.html.twig', [
                 'message' => 'Employee not found'
             ]);
         }
