@@ -17,7 +17,7 @@ class MainController extends AbstractController
     #[Route(path: '/', name: 'employee_index')]
     public function index(): Response
     {
-        $users = $this->employeeRepository->findBy([], ['id' => 'DESC'], 10); // Fetch latest users
+        $users = $this->employeeRepository->findBy([], ['id' => 'DESC'], 10);
 
         return $this->render('home/index.html.twig', [
             'users' => $users

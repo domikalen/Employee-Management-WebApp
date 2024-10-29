@@ -32,10 +32,10 @@ class Employee
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    // Constructor
+
     public function __construct(
-        ?string $name,
-        ?string $role,
+        ?string $name = null,
+        ?string $role = null,
         ?string $image = null,
         ?string $phone = null,
         ?string $email = null,

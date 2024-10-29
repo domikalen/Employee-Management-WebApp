@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Employee;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 class Account
@@ -22,21 +23,25 @@ class Account
     #[ORM\Column(type: 'string', length: 50)]
     private ?string $expiration = null;
 
+    #[ORM\ManyToOne(targetEntity: Employee::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employee $employee = null;
+
     public function __construct(
-        ?string $name,
-        ?string $type,
-        ?string $expiration
+        ?string $name = null,
+        ?string $type = null,
+        ?string $expiration = null
     ) {
         $this->name = $name;
         $this->type = $type;
         $this->expiration = $expiration;
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function setId(int $id): self
     {
         $this->id = $id;
@@ -73,6 +78,17 @@ class Account
     public function setExpiration(string $expiration): self
     {
         $this->expiration = $expiration;
+        return $this;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): self
+    {
+        $this->employee = $employee;
         return $this;
     }
 }
