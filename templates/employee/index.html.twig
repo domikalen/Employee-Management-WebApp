@@ -30,6 +30,21 @@
             {% endfor %}
         </ul>
 
+        <div class="pagination">
+            {% if currentPage > 1 %}
+                <a href="{{ path('employees', { 'page': currentPage - 1 }) }}" class="pagination-button" title="Previous Page">
+                    <span class="icon">⬅</span>
+                </a>
+            {% endif %}
+
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+            {% if currentPage < totalPages %}
+                <a href="{{ path('employees', { 'page': currentPage + 1 }) }}" class="pagination-button" title="Next Page">
+                    <span class="icon">➡</span>
+                </a>
+            {% endif %}
+        </div>
 
     </section>
 {% endblock %}

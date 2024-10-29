@@ -1,7 +1,9 @@
+
 ul {
     list-style: none;
     padding: 0;
 }
+
 
 ul li {
     display: flex;
@@ -11,27 +13,70 @@ ul li {
     padding: var(--padding-base);
     border: 0.1rem solid var(--table-border-color);
     border-radius: var(--border-radius);
-    background-color: #fafafa;
+    background-color: var(--main-bg-color);
+    box-shadow: var(--shadow-light);
 }
+
 
 ul li img {
     border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
+    width: var(--image-width);
+    height: var(--image-width);
     object-fit: cover;
     margin-right: var(--padding-small);
 }
 
+
 ul li strong {
     margin-right: auto;
+    color: var(--main-text-color);
+    font-size: var(--font-size-base);
 }
 
 ul li a {
-    margin-left: 1.5rem;
+    margin-left: var(--padding-small);
     color: var(--highlight-color);
     text-decoration: none;
+    font-size: var(--font-size-base);
 }
 
 ul li a:hover {
     text-decoration: underline;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding-small);
+    margin-top: var(--padding-base);
+}
+
+
+.pagination-button {
+    padding: var(--padding-small) var(--padding-base);
+    background-color: var(--button-bg-color);
+    color: var(--main-text-color);
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: var(--font-size-base);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    margin: 0 var(--padding-small);
+}
+
+.pagination-button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+
+.pagination span {
+    font-weight: bold;
+    font-size: var(--font-size-base);
+    color: var(--main-text-color);
+    margin: 0 var(--padding-small);
 }

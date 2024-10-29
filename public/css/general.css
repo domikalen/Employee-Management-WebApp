@@ -69,11 +69,12 @@ a.button:hover {
 main {
     padding: var(--padding-base);
     max-width: 80%;
-    margin: auto;
+    margin: 0 auto;
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
 }
+
 
 footer {
     text-align: center;
