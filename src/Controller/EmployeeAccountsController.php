@@ -2,24 +2,28 @@
 
 namespace App\Controller;
 
-use App\Database\StaticDatabase;
+use App\Repository\EmployeeRepository;
+use App\Repository\AccountRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class EmployeeAccountsController extends AbstractController {
-    private $db;
+class EmployeeAccountsController extends AbstractController
+{
+    private $employeeRepository;
+    private $accountRepository;
 
-    public function __construct()
+    public function __construct(EmployeeRepository $employeeRepository, AccountRepository $accountRepository)
     {
-        $this->db = new StaticDatabase();
+        $this->employeeRepository = $employeeRepository;
+        $this->accountRepository = $accountRepository;
     }
 
     #[Route(path: '/employees_account/{id}', name: 'employee_account')]
     public function account(int $id): Response
     {
-        $employee = $this->db->getEmployee($id);
-        $accounts = $this->db->getAccountsForEmployee($id);
+        $employee = $this->employeeRepository->find($id);
+        $accounts = $this->accountRepository->findBy(['employee' => $id]);
 
         if ($employee) {
             return $this->render('employees_account/index.html.twig', [
@@ -32,7 +36,4 @@ class EmployeeAccountsController extends AbstractController {
             ]);
         }
     }
-
-
 }
-

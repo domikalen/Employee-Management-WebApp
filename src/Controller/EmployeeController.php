@@ -2,27 +2,25 @@
 
 namespace App\Controller;
 
-use App\Database\StaticDatabase;
+use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class EmployeeController extends AbstractController
 {
-    private $db;
+    private $employeeRepository;
 
-    public function __construct()
+    public function __construct(EmployeeRepository $employeeRepository)
     {
-        $this->db = new StaticDatabase();
+        $this->employeeRepository = $employeeRepository;
     }
 
     #[Route(path: '/employees', name: 'employees')]
     public function index(): Response
     {
-        // Fetch the employees only once
-        $employees = $this->db->getEmployees();
+        $employees = $this->employeeRepository->findAll();
 
-        // Render the employee index template
         return $this->render('employee/index.html.twig', [
             'employees' => $employees
         ]);
