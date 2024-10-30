@@ -9,3 +9,19 @@ li {
     margin: var(--padding-small) 0;
     background-color: #fafafa;
 }
+
+
+.edit-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    padding: var(--padding-small) var(--padding-base);
+    border: 0.063rem solid var(--highlight-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-link:hover {
+    background-color: var(--highlight-color);
+    color: #fff;
+}

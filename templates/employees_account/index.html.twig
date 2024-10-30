@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Účty zaměstnance{% endblock %}
+{% block title %}Účty zaměstnance - {{ employee.name }}{% endblock %}
 
 {% block content %}
     <section>
@@ -11,6 +11,7 @@
                 <th>Název účtu</th>
                 <th>Typ účtu</th>
                 <th>Expirace</th>
+                <th>Upravit</th>
             </tr>
             </thead>
             <tbody>
@@ -19,10 +20,13 @@
                     <td>{{ account.name }}</td>
                     <td>{{ account.type }}</td>
                     <td>{{ account.expiration }}</td>
+                    <td>
+                        <a href="#" class="edit-link" onclick="alert('Edit functionality is not implemented yet.')">Edit</a>
+                    </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Žádné účty nejsou dostupné.</td>
+                    <td colspan="4">Žádné účty nejsou dostupné.</td>
                 </tr>
             {% endfor %}
             </tbody>
