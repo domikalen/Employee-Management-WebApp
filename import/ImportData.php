@@ -3,6 +3,7 @@
 use App\Kernel;
 use App\Entity\Employee;
 use App\Entity\Account;
+use App\Entity\Role;
 use Symfony\Component\Dotenv\Dotenv;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -31,7 +32,7 @@ class ImportData
                 'name' => 'Karlos Huares',
                 'role' => 'Ředitel',
                 'image' => '/images/karlos_huares.jpg',
-                'phone' => '+420 123 456 789',
+                'phone' => '+420 123 456 780',
                 'email' => 'karlos@example.com',
                 'description' => 'Karlos je odborný manažer, který se soustředí na optimalizaci výkonnosti týmu.',
             ],
@@ -61,7 +62,7 @@ class ImportData
             ],
             [
                 'name' => 'Eric Cartman',
-                'role' => 'terrorist',
+                'role' => 'CEO',
                 'image' => '/images/eric_cartman.jpg',
                 'phone' => '+420 666 666 666',
                 'email' => 'benladen@example.com',
@@ -228,12 +229,50 @@ class ImportData
             ],
         ];
 
+        $rolesData = [
+            ['title' => 'Ředitel', 'description' => 'Top-level manager responsible for the entire organization', 'isVisible' => true],
+            ['title' => 'Manažer', 'description' => 'Manager responsible for overseeing projects and teams', 'isVisible' => true],
+            ['title' => 'Diktátor', 'description' => 'High-level executive with authoritarian power', 'isVisible' => false],
+            ['title' => 'Distributor', 'description' => 'Responsible for distribution logistics', 'isVisible' => true],
+            ['title' => 'Security Consultant', 'description' => 'Specializes in providing security solutions', 'isVisible' => true],
+            ['title' => 'Lawyer', 'description' => 'Handles legal matters and provides counsel', 'isVisible' => true],
+            ['title' => 'Chemist', 'description' => 'Professional with expertise in chemical science', 'isVisible' => true],
+            ['title' => 'Accountant', 'description' => 'Manages financial records and performs audits', 'isVisible' => true],
+            ['title' => 'DEA Agent', 'description' => 'Agent specializing in anti-narcotic operations', 'isVisible' => true],
+            ['title' => 'Radiologic Technician', 'description' => 'Medical professional specializing in radiology', 'isVisible' => true],
+            ['title' => 'Lab Assistant', 'description' => 'Assists in lab operations and experiments', 'isVisible' => true],
+            ['title' => 'Logistics Manager', 'description' => 'Manages logistics and supply chain operations', 'isVisible' => true],
+            ['title' => 'IT Specialist', 'description' => 'Handles IT infrastructure and technical support', 'isVisible' => true],
+            ['title' => 'HR Manager', 'description' => 'Responsible for employee recruitment and welfare', 'isVisible' => true],
+            ['title' => 'Project Manager', 'description' => 'Coordinates and manages project tasks and resources', 'isVisible' => true],
+            ['title' => 'Operations Manager', 'description' => 'Oversees daily operations and workflow management', 'isVisible' => true],
+            ['title' => 'Sales Director', 'description' => 'Directs sales strategies and team performance', 'isVisible' => true],
+            ['title' => 'Marketing Specialist', 'description' => 'Develops marketing campaigns and brand strategies', 'isVisible' => true],
+            ['title' => 'Financial Analyst', 'description' => 'Analyzes financial data and market trends', 'isVisible' => true],
+            ['title' => 'Customer Support', 'description' => 'Assists customers with inquiries and troubleshooting', 'isVisible' => true],
+            ['title' => 'Business Analyst', 'description' => 'Analyzes business processes and suggests improvements', 'isVisible' => true],
+            ['title' => 'Chief Technology Officer', 'description' => 'Oversees technology development and strategy', 'isVisible' => true],
+            ['title' => 'CEO', 'description' => 'Chief Executive Officer responsible for the overall vision and direction of the company', 'isVisible' => true],
+            ['title' => 'CFO', 'description' => 'Chief Financial Officer responsible for financial strategy and management', 'isVisible' => true],
+            ['title' => 'Compliance Officer', 'description' => 'Ensures company adherence to laws and regulations', 'isVisible' => true],
+        ];
 
-        $employees = [];
+
+        $roles = [];
+        foreach ($rolesData as $roleData) {
+            $role = new Role();
+            $role->setTitle($roleData['title']);
+            $role->setDescription($roleData['description']);
+            $role->setIsVisible($roleData['isVisible']);
+            $this->entityManager->persist($role);
+            $roles[$roleData['title']] = $role;
+        }
+        $this->entityManager->flush();
+
         foreach ($employeesData as $empData) {
             $employee = new Employee();
             $employee->setName($empData['name']);
-            $employee->setRole($empData['role']);
+            $employee->setRole($roles[$empData['role']]);  // Set Role entity
             $employee->setImage($empData['image']);
             $employee->setPhone($empData['phone']);
             $employee->setEmail($empData['email']);

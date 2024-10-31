@@ -6,7 +6,14 @@
     <section class="employee-detail">
         <img src="{{ employee.image }}" alt="{{ employee.name }}">
         <h2>{{ employee.name }}</h2>
-        <p><strong>Funkce:</strong> {{ employee.role }}</p>
+
+        {% if employee.role %}
+            <p><strong>Funkce:</strong> {{ employee.role.title }}</p>
+            <p><strong>Popis role:</strong> {{ employee.role.description }}</p>
+        {% else %}
+            <p><strong>Funkce:</strong> Role not assigned</p>
+        {% endif %}
+
         <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
         <h3>Popis:</h3>
         <p>{{ employee.description }}</p>

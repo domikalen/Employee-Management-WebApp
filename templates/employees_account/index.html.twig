@@ -5,6 +5,7 @@
 {% block content %}
     <section>
         <h2>Účty pro {{ employee.name }}</h2>
+        <p>Role: {{ employee.role.title }}</p>
         <table>
             <thead>
             <tr>
@@ -21,7 +22,7 @@
                     <td>{{ account.type }}</td>
                     <td>{{ account.expiration }}</td>
                     <td>
-                        <a href="#" class="edit-link" onclick="alert('Edit functionality is not implemented yet.')">Edit</a>
+                        <a href="{{ path('edit_account', { 'id': account.id }) }}" class="edit-button">Edit</a>
                     </td>
                 </tr>
             {% else %}

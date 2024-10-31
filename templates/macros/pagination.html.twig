@@ -1,0 +1,17 @@
+{% macro render(pagination, routeName) %}
+    <div class="pagination">
+        {% if pagination.hasPreviousPage %}
+            <a href="{{ path(routeName, { 'page': pagination.previousPage }) }}" class="pagination-button" title="Previous Page">
+                <span class="icon">⬅</span>
+            </a>
+        {% endif %}
+
+        <span>Page {{ pagination.currentPage }} of {{ pagination.totalPages }}</span>
+
+        {% if pagination.hasNextPage %}
+            <a href="{{ path(routeName, { 'page': pagination.nextPage }) }}" class="pagination-button" title="Next Page">
+                <span class="icon">➡</span>
+            </a>
+        {% endif %}
+    </div>
+{% endmacro %}

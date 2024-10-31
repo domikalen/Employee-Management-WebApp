@@ -1,10 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/employees.css') }}" />
-{% endblock %}
-
-{% block title %}Evidence zaměstnanců - Přehled zaměstnanců{% endblock %}
+{% import 'macros/pagination.html.twig' as pagination %}
+{% block title %}Seznam zaměstnanců{% endblock %}
 
 {% block content %}
     <section>
@@ -14,7 +11,7 @@
                 <li>
                     <div class="employee-info">
                         <img src="{{ employee.image }}" alt="{{ employee.name }}" width="50">
-                        <strong>{{ employee.name }}:</strong> {{ employee.role }}
+                        <strong>{{ employee.name }}:</strong> {{ employee.role.title }}
                     </div>
                     <div class="employee-actions">
                         <a class="employee-action" href="{{ path('details', { 'id': employee.id }) }}">
@@ -30,21 +27,6 @@
             {% endfor %}
         </ul>
 
-        <div class="pagination">
-            {% if currentPage > 1 %}
-                <a href="{{ path('employees', { 'page': currentPage - 1 }) }}" class="pagination-button" title="Previous Page">
-                    <span class="icon">⬅</span>
-                </a>
-            {% endif %}
-
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-
-            {% if currentPage < totalPages %}
-                <a href="{{ path('employees', { 'page': currentPage + 1 }) }}" class="pagination-button" title="Next Page">
-                    <span class="icon">➡</span>
-                </a>
-            {% endif %}
-        </div>
-
+        {{ pagination.render(pagination, 'employees') }}
     </section>
 {% endblock %}

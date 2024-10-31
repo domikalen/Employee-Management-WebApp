@@ -11,31 +11,30 @@ class Employee
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
-    private ?string $role = null;
+    #[ORM\ManyToOne(targetEntity: Role::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Role $role = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $image = null;
 
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[ORM\Column(type: 'string', length: 20, unique: true)]
     private ?string $phone = null;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[ORM\Column(type: 'string', length: 100, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-
     public function __construct(
         ?string $name = null,
-        ?string $role = null,
+        ?Role $role = null,
         ?string $image = null,
         ?string $phone = null,
         ?string $email = null,
@@ -49,18 +48,10 @@ class Employee
         $this->description = $description;
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
 
     public function getName(): ?string
     {
@@ -73,12 +64,12 @@ class Employee
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
         return $this;
