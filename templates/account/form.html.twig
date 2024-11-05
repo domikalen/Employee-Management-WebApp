@@ -2,10 +2,10 @@
 
 {% block content %}
     <section class="form-section">
-        <h2 class="form-title">Create a New Account for {{ employee.name }}</h2>
+        <h2 class="form-title">{{ title }}</h2>
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="form-button primary">Save Account</button>
+        <button type="submit" class="form-button primary">{{ button_text }}</button>
         {{ form_end(form) }}
     </section>
 {% endblock %}

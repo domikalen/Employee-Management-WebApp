@@ -24,7 +24,6 @@ class AccountController extends AbstractController
     #[Route('/account/new/{employee_id}', name: 'account_new', requirements: ['employee_id' => '\d+'])]
     public function new(Request $request, int $employee_id): Response
     {
-        // Fetch the employee by ID
         $employee = $this->entityManager->getRepository(Employee::class)->find($employee_id);
 
         if (!$employee) {
@@ -32,7 +31,7 @@ class AccountController extends AbstractController
         }
 
         $account = new Account();
-        $account->setEmployee($employee); // Associate the account with the employee
+        $account->setEmployee($employee);
 
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
@@ -44,9 +43,10 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('employee_account', ['id' => $employee->getId()]);
         }
 
-        return $this->render('account/new.html.twig', [
+        return $this->render('account/form.html.twig', [
             'form' => $form->createView(),
-            'employee' => $employee,
+            'title' => 'Create a New Account for ' . $employee->getName(),
+            'button_text' => 'Save Account',
         ]);
     }
 
@@ -62,9 +62,10 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('employee_account', ['id' => $account->getEmployee()->getId()]);
         }
 
-        return $this->render('account/edit.html.twig', [
+        return $this->render('account/form.html.twig', [
             'form' => $form->createView(),
-            'account' => $account,
+            'title' => 'Edit Account for ' . $account->getEmployee()->getName(),
+            'button_text' => 'Update Account',
         ]);
     }
 
@@ -75,7 +76,7 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $employeeId = $account->getEmployee()->getId(); // Get employee ID before deletion
+            $employeeId = $account->getEmployee()->getId();
             $this->entityManager->remove($account);
             $this->entityManager->flush();
 
