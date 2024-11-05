@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormError;
 
 class EmployeeController extends AbstractController
 {
@@ -55,16 +56,22 @@ class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
-            $imagePath = $this->handleImageUpload($imageFile, $this->getParameter('images_directory'), $employee->getImage());
-            $employee->setImage($imagePath);
+            $existingEmployeeByPhone = $this->entityManager->getRepository(Employee::class)->findOneBy(['phone' => $employee->getPhone()]);
+            $existingEmployeeByEmail = $this->entityManager->getRepository(Employee::class)->findOneBy(['email' => $employee->getEmail()]);
 
-            if ($isNew) {
-                $this->entityManager->persist($employee);
+
+            if ($form->isValid()) {
+                $imageFile = $form->get('image')->getData();
+                $imagePath = $this->handleImageUpload($imageFile, $this->getParameter('images_directory'), $employee->getImage());
+                $employee->setImage($imagePath);
+
+                if ($isNew) {
+                    $this->entityManager->persist($employee);
+                }
+                $this->entityManager->flush();
+
+                return $this->redirectToRoute('employees');
             }
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('employees');
         }
 
         return $this->render('employee/form.html.twig', [
@@ -74,9 +81,10 @@ class EmployeeController extends AbstractController
         ]);
     }
 
+
     private function handleImageUpload(?UploadedFile $imageFile, string $directory, ?string $currentImagePath): string
     {
-        $defaultImage = "/images/default.jpg";
+        $defaultImage = "/images/new_user.jpg";
 
         if (!$imageFile) {
             return $currentImagePath ?? $defaultImage;
@@ -103,7 +111,7 @@ class EmployeeController extends AbstractController
     {
         $imagePath = $this->getParameter('images_directory') . $employee->getImage();
 
-        if ($employee->getImage() && file_exists($imagePath) && $employee->getImage() !== '/images/default.jpg') {
+        if ($employee->getImage() && file_exists($imagePath) && $employee->getImage() !== '/images/new_user.jpg') {
             unlink($imagePath);
         }
 

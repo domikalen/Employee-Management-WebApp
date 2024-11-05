@@ -7,7 +7,11 @@
         <h2>Účty pro {{ employee.name }}</h2>
         <p>Role: {{ employee.role.title }}</p>
 
-        <a href="{{ path('account_new', { 'employee_id': employee.id }) }}" class="button"> ➕ Add New Account</a>
+        <div class="add-account-button-container">
+            <a href="{{ path('account_new', { 'employee_id': employee.id }) }}" class="add-account-button">
+                ➕ Add New Account
+            </a>
+        </div>
 
         <table>
             <thead>

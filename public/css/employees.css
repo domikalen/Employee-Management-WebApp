@@ -11,19 +11,26 @@ ul li {
     padding: var(--padding-base);
     border: 0.1rem solid var(--table-border-color);
     border-radius: var(--border-radius);
-    background-color: var(--main-bg-color);
+    background-color: #fafafa;
     box-shadow: var(--shadow-light);
+}
+
+ul li .employee-info {
+    display: flex;
+    align-items: center;
+    gap: var(--padding-small);
+    flex-grow: 1;
 }
 
 ul li img {
     border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
+    width: var(--image-size);
+    height: var(--image-size);
     object-fit: cover;
     margin-right: var(--padding-small);
 }
 
-ul li .employee-info {
+ul li .employee-details {
     flex-grow: 1;
 }
 
@@ -32,46 +39,49 @@ ul li .employee-actions {
     gap: var(--padding-small);
 }
 
-ul li a {
-    color: var(--highlight-color);
+.employee-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: var(--button-bg-color);
+    border: 0.1rem solid var(--button-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--button-padding);
     text-decoration: none;
     font-size: var(--font-size-base);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 5rem;
+    text-align: center;
 }
 
-ul li a:hover {
-    text-decoration: underline;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--padding-small);
-    margin-top: var(--padding-base);
-}
-
-.pagination-button {
-    padding: var(--padding-small) var(--padding-base);
+.employee-action:hover {
     background-color: var(--button-bg-color);
-    color: var(--main-text-color);
-    text-decoration: none;
-    border-radius: 50%;
-    font-size: var(--font-size-base);
-    width: 2.5rem;
-    height: 2.5rem;
+    color: white;
+}
+
+.employee-action .icon {
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.header-with-button {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: var(--padding-base);
+}
+
+.add-employee-button {
+    background-color: var(--button-bg-color);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-base);
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
-.pagination-button:hover {
+.add-employee-button:hover {
     background-color: var(--button-hover-bg-color);
-}
-
-.pagination span {
-    font-weight: bold;
-    font-size: var(--font-size-base);
-    color: var(--main-text-color);
-    margin: 0 var(--padding-small);
 }

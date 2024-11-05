@@ -1,11 +1,22 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New Employee{% endblock %}
+{% block title %}Create New Employee{% endblock %}
 
 {% block content %}
-    <h1>Create a New Employee</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Create</button>
-    {{ form_end(form) }}
+    <div class="employee-form-container">
+        <h1>Create a New Employee</h1>
+        <div class="form-content">
+            <div class="form-fields">
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.phone) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.role) }}
+                {{ form_row(form.description, { 'attr': { 'class': 'large-textarea' } }) }}
+                {{ form_row(form.imageFile) }}
+                <button type="submit" class="form-button">Create</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
+#[UniqueEntity(fields: ['phone'], message: 'This phone number is already in use. Please choose a different one.')]
 #[UniqueEntity(fields: ['email'], message: 'This email is already in use. Please choose a different one.')]
 class Employee
 {

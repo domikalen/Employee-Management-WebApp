@@ -5,24 +5,26 @@
 
 {% block content %}
     <section>
-        <h2>Seznam zaměstnanců</h2>
-        <div class="add-employee-button">
-            <a href="{{ path('employee_form') }}" class="button"> ➕ Add Employee</a>
+        <div class="header-with-button">
+            <h2>Seznam zaměstnanců</h2>
+            <a href="{{ path('employee_form') }}" class="button add-employee-button">➕ Add Employee</a>
         </div>
 
         <ul>
             {% for employee in employees %}
                 <li>
                     <div class="employee-info">
-                        <img src="{{ employee.image }}" alt="{{ employee.name }}" width="50">
-                        <strong>{{ employee.name }}:</strong> {{ employee.role.title }}
+                        <img src="{{ employee.image }}" alt="{{ employee.name }}">
+                        <div class="employee-details">
+                            <strong>{{ employee.name }}:</strong> {{ employee.role.title }}
+                        </div>
                     </div>
                     <div class="employee-actions">
                         <a class="employee-action" href="{{ path('details', { 'id': employee.id }) }}">
-                            <span class="icon">📄</span> Detail zaměstnance
+                            <span class="icon">📄</span> Detail
                         </a>
                         <a class="employee-action" href="{{ path('employee_account', { 'id': employee.id }) }}">
-                            <span class="icon">🔑</span> Účty zaměstnance
+                            <span class="icon">🔑</span> Účty
                         </a>
                         <a class="employee-action" href="{{ path('employee_form', { 'id': employee.id }) }}">
                             <span class="icon">✏️</span> Edit
@@ -34,6 +36,8 @@
             {% endfor %}
         </ul>
 
-        {{ pagination.render(pagination, 'employees') }}
+        <div class="pagination">
+            {{ pagination.render(pagination, 'employees') }}
+        </div>
     </section>
 {% endblock %}

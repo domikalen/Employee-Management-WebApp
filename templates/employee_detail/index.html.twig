@@ -4,23 +4,23 @@
 
 {% block content %}
     <section class="employee-detail">
-        {% if employee.image %}
-            <img src="{{ employee.image }}" alt="{{ employee.name }}" class="employee-image">
-        {% else %}
-            <img src="{{ asset('images/new_user.png') }}" alt="Default Image" class="employee-image">
-        {% endif %}
-        <h2>{{ employee.name }}</h2>
-
-        {% if employee.role %}
-            <p><strong>Funkce:</strong> {{ employee.role.title }}</p>
-            <p><strong>Popis role:</strong> {{ employee.role.description }}</p>
-        {% else %}
-            <p><strong>Funkce:</strong> Role not assigned</p>
-        {% endif %}
-
-        <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
-        <h3>Popis:</h3>
-        <p>{{ employee.description }}</p>
+        <div class="employee-detail-container">
+            <div class="employee-image-container">
+                {% if employee.image %}
+                    <img src="{{ employee.image }}" alt="{{ employee.name }}" class="employee-image">
+                {% else %}
+                    <img src="{{ asset('images/new_user.png') }}" alt="Default Image" class="employee-image">
+                {% endif %}
+            </div>
+            <div class="employee-info-container">
+                <h2>{{ employee.name }}</h2>
+                <p><strong>Funkce:</strong> {{ employee.role.title }}</p>
+                <p><strong>Popis role:</strong> {{ employee.role.description }}</p>
+                <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
+                <h3>Popis:</h3>
+                <p>{{ employee.description }}</p>
+            </div>
+        </div>
 
         <div class="employee-actions">
             <a href="{{ path('employee_form', { id: employee.id }) }}" class="action-button btn-edit">
