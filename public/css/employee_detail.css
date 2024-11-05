@@ -4,11 +4,24 @@ main {
     align-items: center;
 }
 
-img {
+.employee-detail img {
     border-radius: var(--border-radius);
     margin-bottom: var(--padding-base);
-    max-width: 100%;
+    max-width: var(--image-width);
     height: auto;
+    object-fit: cover;
+    box-shadow: var(--shadow-light);
+}
+
+.employee-detail h2 {
+    color: var(--main-text-color);
+    margin-top: var(--padding-small);
+}
+
+.employee-actions {
+    margin-top: var(--padding-small);
+    display: flex;
+    gap: var(--padding-small);
 }
 
 ul {
@@ -20,6 +33,3 @@ li {
     margin-bottom: var(--padding-small);
 }
 
-strong {
-    font-weight: bold;
-}

@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'This email is already in use. Please choose a different one.')]
 class Employee
 {
     #[ORM\Id]
@@ -14,19 +17,23 @@ class Employee
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Name is required.")]
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: Role::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private ?string $image = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = "/images/new_user.jpg";
 
     #[ORM\Column(type: 'string', length: 20, unique: true)]
+    #[Assert\NotBlank(message: "Phone number is required.")]
     private ?string $phone = null;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[Assert\NotBlank(message: "Email is required.")]
+    #[Assert\Email(message: "Please enter a valid email address.")]
     private ?string $email = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -47,6 +54,7 @@ class Employee
         $this->email = $email;
         $this->description = $description;
     }
+
 
     public function getId(): ?int
     {

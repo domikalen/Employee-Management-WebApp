@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ isNew ? 'New Employee' : 'Edit Employee' }}{% endblock %}
+
+{% block content %}
+    <h1>{{ isNew ? 'Create New Employee' : 'Edit Employee - ' ~ employee.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">{{ isNew ? 'Create' : 'Update' }}</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,9 +1,7 @@
-
 ul {
     list-style: none;
     padding: 0;
 }
-
 
 ul li {
     display: flex;
@@ -17,24 +15,24 @@ ul li {
     box-shadow: var(--shadow-light);
 }
 
-
 ul li img {
     border-radius: 50%;
-    width: var(--image-width);
-    height: var(--image-width);
+    width: 3rem;
+    height: 3rem;
     object-fit: cover;
     margin-right: var(--padding-small);
 }
 
+ul li .employee-info {
+    flex-grow: 1;
+}
 
-ul li strong {
-    margin-right: auto;
-    color: var(--main-text-color);
-    font-size: var(--font-size-base);
+ul li .employee-actions {
+    display: flex;
+    gap: var(--padding-small);
 }
 
 ul li a {
-    margin-left: var(--padding-small);
     color: var(--highlight-color);
     text-decoration: none;
     font-size: var(--font-size-base);
@@ -52,7 +50,6 @@ ul li a:hover {
     margin-top: var(--padding-base);
 }
 
-
 .pagination-button {
     padding: var(--padding-small) var(--padding-base);
     background-color: var(--button-bg-color);
@@ -66,13 +63,11 @@ ul li a:hover {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-    margin: 0 var(--padding-small);
 }
 
 .pagination-button:hover {
     background-color: var(--button-hover-bg-color);
 }
-
 
 .pagination span {
     font-weight: bold;

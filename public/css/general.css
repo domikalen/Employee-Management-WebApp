@@ -16,13 +16,6 @@
     --shadow-light: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
     --image-width: 30%;
     --image-height: 40vh;
-    --icon-margin: 0.5rem;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -31,111 +24,64 @@ body {
     color: var(--main-text-color);
     line-height: 1.6;
     font-size: var(--font-size-base);
-    padding: var(--padding-base);
 }
 
-header {
-    background-color: var(--header-bg-color);
-    color: white;
-    padding: var(--padding-base);
-    text-align: center;
+a, button {
+    font-family: inherit;
 }
 
-nav {
-    margin: var(--padding-base) 0;
-    display: flex;
-    flex-wrap: wrap;
+a.employee-action, .employee-action {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    padding: 0.4rem 0.8rem;
+    margin-right: var(--padding-small);
+    border: 1px solid var(--button-bg-color);
+    border-radius: var(--border-radius);
+    background-color: white;
+    color: var(--button-bg-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    width: 6rem; /* Ensure a consistent width */
 }
 
-a.button {
-    display: inline-block;
+a.employee-action:hover, .employee-action:hover {
     background-color: var(--button-bg-color);
     color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    padding: var(--padding-base) var(--padding-small);
-    margin: var(--padding-small);
-    cursor: pointer;
-    font-size: var(--font-size-base);
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
 }
 
-a.button:hover {
-    background-color: var(--button-hover-bg-color);
+/* Icon styling within buttons */
+.employee-action .icon {
+    margin-right: 0.4rem;
+    vertical-align: middle;
 }
 
-main {
-    padding: var(--padding-base);
-    max-width: 80%;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+/* Specific styling for Delete button */
+.btn-delete {
+    color: #dc3545;
+    border-color: #dc3545;
 }
 
-footer {
-    text-align: center;
-    padding: var(--padding-base);
-    background-color: var(--header-bg-color);
+.btn-delete:hover {
+    background-color: #dc3545;
     color: white;
-    margin-top: var(--padding-base);
 }
 
-h1 {
-    font-size: var(--font-size-xlarge);
-    margin-bottom: var(--padding-base);
+/* Specific styling for Edit button */
+.btn-edit {
+    color: #28a745;
+    border-color: #28a745;
 }
 
-h2 {
-    font-size: var(--font-size-large);
-    margin-bottom: var(--padding-small);
+.btn-edit:hover {
+    background-color: #28a745;
+    color: white;
 }
 
-h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--padding-small);
-}
-
-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: var(--padding-small) 0;
-    padding: var(--padding-base);
-    border: 0.063rem solid var(--table-border-color);
-    border-radius: var(--border-radius);
-    background-color: #fafafa;
-}
-
-ul li .employee-info {
-    flex-grow: 1;
-}
-
-ul li .employee-actions {
-    display: flex;
-    gap: var(--padding-small);
-}
-
-.employee-detail img {
-    width: var(--image-width);
-    height: var(--image-height);
-    object-fit: cover;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
-    margin-right: var(--padding-base);
-}
-
-ul li img {
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    object-fit: cover;
-    margin-right: var(--padding-small);
-}
-
+/* General styling continues... */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -149,7 +95,7 @@ table {
 th, td {
     padding: var(--padding-small);
     text-align: left;
-    border-bottom: 0.063rem solid var(--table-border-color);
+    border-bottom: 1px solid var(--table-border-color);
 }
 
 th {
@@ -166,132 +112,19 @@ tbody tr:hover {
     background-color: #ececec;
 }
 
-a {
-    color: var(--highlight-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-@media (max-width: 600px) {
-    body {
-        padding: var(--padding-small);
-    }
-
-    h1 {
-        font-size: 1.75rem;
-        margin-bottom: var(--padding-small);
-    }
-
-    h2 {
-        font-size: 1.25rem;
-        margin-bottom: var(--padding-small);
-    }
-
-    h3 {
-        font-size: 1.1rem;
-        margin-bottom: var(--padding-small);
-    }
-
-    button {
-        width: auto;
-        max-width: 90%;
-        padding: var(--padding-base);
-        font-size: 1rem;
-    }
-
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .table-container {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    table, th, td {
-        font-size: 0.9rem;
-        padding: var(--padding-small);
-    }
-
-    main {
-        padding: var(--padding-small);
-        max-width: 95%;
-    }
-
-    ul li {
-        padding: var(--padding-small);
-    }
-
-    footer {
-        padding: var(--padding-small);
-        font-size: 0.875rem;
-    }
-}
-
-a.employee-action {
-    display: inline-block;
-    padding: var(--padding-small) var(--padding-base);
-    border: 0.063rem solid var(--button-bg-color);
-    border-radius: var(--border-radius);
-    background-color: white;
-    color: var(--button-bg-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-a.employee-action:hover {
-    background-color: var(--button-bg-color);
-    color: white;
-    text-decoration: none;
-}
-
-a.employee-action + a.employee-action {
-    margin-left: var(--padding-small);
-}
-
-a.employee-action .icon {
-    margin-right: var(--icon-margin);
-    vertical-align: middle;
-}
-
-.edit-button {
-    display: inline-block;
-    padding: var(--padding-small) var(--padding-base);
-    border: 0.063rem solid var(--highlight-color);
-    color: var(--highlight-color);
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+footer {
     text-align: center;
-}
-
-.edit-button:hover {
-    background-color: var(--highlight-color);
+    padding: var(--padding-base);
+    background-color: var(--header-bg-color);
     color: white;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
     margin-top: var(--padding-base);
 }
 
-.pagination a {
-    padding: var(--padding-small) var(--padding-base);
-    border: 0.063rem solid var(--table-border-color);
-    border-radius: var(--border-radius);
-    color: var(--highlight-color);
-    margin: 0 var(--padding-small);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination a:hover {
-    background-color: var(--highlight-color);
-    color: white;
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .employee-action {
+        width: auto;
+        padding: var(--padding-small);
+        font-size: 0.85rem;
+    }
 }

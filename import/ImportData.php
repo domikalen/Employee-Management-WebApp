@@ -255,21 +255,37 @@ class ImportData
             ['title' => 'CEO', 'description' => 'Chief Executive Officer responsible for the overall vision and direction of the company', 'isVisible' => true],
             ['title' => 'CFO', 'description' => 'Chief Financial Officer responsible for financial strategy and management', 'isVisible' => true],
             ['title' => 'Compliance Officer', 'description' => 'Ensures company adherence to laws and regulations', 'isVisible' => true],
+            ['title' => 'Officer', 'description' => 'lol', 'isVisible' => true],
+
         ];
 
 
         $roles = [];
         foreach ($rolesData as $roleData) {
-            $role = new Role();
-            $role->setTitle($roleData['title']);
-            $role->setDescription($roleData['description']);
-            $role->setIsVisible($roleData['isVisible']);
-            $this->entityManager->persist($role);
-            $roles[$roleData['title']] = $role;
+            $existingRole = $this->entityManager->getRepository(Role::class)->findOneBy(['title' => $roleData['title']]);
+
+            if (!$existingRole) {
+                $role = new Role();
+                $role->setTitle($roleData['title']);
+                $role->setDescription($roleData['description']);
+                $role->setIsVisible($roleData['isVisible']);
+                $this->entityManager->persist($role);
+                $roles[$roleData['title']] = $role;
+            } else {
+                $roles[$roleData['title']] = $existingRole;
+            }
         }
         $this->entityManager->flush();
 
         foreach ($employeesData as $empData) {
+            // Check if an employee with this phone number already exists
+            $existingEmployee = $this->entityManager->getRepository(Employee::class)->findOneBy(['phone' => $empData['phone']]);
+
+            if ($existingEmployee) {
+                echo "Employee with phone " . $empData['phone'] . " already exists. Skipping import for this employee.\n";
+                continue; // Skip to the next employee if duplicate phone found
+            }
+
             $employee = new Employee();
             $employee->setName($empData['name']);
             $employee->setRole($roles[$empData['role']]);  // Set Role entity
@@ -281,6 +297,7 @@ class ImportData
             $employees[] = $employee;
         }
         $this->entityManager->flush();
+
 
         foreach ($accountsData as $employeeId => $accDataArray) {
             $employee = $employees[$employeeId - 1];

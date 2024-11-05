@@ -1,6 +1,7 @@
 
 parameters:
-    items_per_page: 10
+    items_per_page: 5
+    images_directory: '%kernel.project_dir%/public/images'
 
 services:
     _defaults:

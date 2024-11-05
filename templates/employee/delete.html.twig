@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Delete Employee{% endblock %}
+
+{% block content %}
+    <h1>Delete Employee - {{ employee.name }}</h1>
+    <p>Are you sure you want to delete this employee?</p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Delete</button>
+    {{ form_end(form) }}
+{% endblock %}

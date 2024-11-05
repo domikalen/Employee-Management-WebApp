@@ -6,7 +6,7 @@ class PaginationService
 {
     private int $itemsPerPage;
 
-    public function __construct(int $itemsPerPage = 10)
+    public function __construct(int $itemsPerPage = 5)
     {
         $this->itemsPerPage = $itemsPerPage;
     }

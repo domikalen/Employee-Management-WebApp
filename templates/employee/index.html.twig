@@ -6,6 +6,10 @@
 {% block content %}
     <section>
         <h2>Seznam zaměstnanců</h2>
+        <div class="add-employee-button">
+            <a href="{{ path('employee_form') }}" class="button"> ➕ Add Employee</a>
+        </div>
+
         <ul>
             {% for employee in employees %}
                 <li>
@@ -19,6 +23,9 @@
                         </a>
                         <a class="employee-action" href="{{ path('employee_account', { 'id': employee.id }) }}">
                             <span class="icon">🔑</span> Účty zaměstnance
+                        </a>
+                        <a class="employee-action" href="{{ path('employee_form', { 'id': employee.id }) }}">
+                            <span class="icon">✏️</span> Edit
                         </a>
                     </div>
                 </li>
