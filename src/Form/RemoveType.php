@@ -9,10 +9,10 @@ class RemoveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('confirm', SubmitType::class, [
-                'label' => 'Delete Role',
-                'attr' => ['class' => 'button danger'],
-            ]);
+//        $builder
+//            ->add('confirm', SubmitType::class, [
+//                'label' => 'Delete Role',
+//                'attr' => ['class' => 'button danger'],
+//            ]);
     }
 }

@@ -3,32 +3,36 @@
 {% block title %}Roles{% endblock %}
 
 {% block content %}
-    <h2>Roles</h2>
-    <a href="{{ path('role_new') }}" class="button">➕ Add Role</a>
+    <section>
+        <div class="header-with-button">
+            <h2>Roles</h2>
+            <a href="{{ path('role_new') }}" class="button add-role-button">➕ Add Role</a>
+        </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for role in roles %}
+        <table>
+            <thead>
             <tr>
-                <td>{{ role.title }}</td>
-                <td>{{ role.description }}</td>
-                <td>
-                    <a href="{{ path('role_edit', { 'id': role.id }) }}">Edit</a>
-                    <a href="{{ path('role_confirm_delete', { 'id': role.id }) }}" class="button danger">Delete</a>
-                </td>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">No roles found.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for role in roles %}
+                <tr>
+                    <td>{{ role.title }}</td>
+                    <td>{{ role.description }}</td>
+                    <td>
+                        <a class="button action-button edit" href="{{ path('role_edit', { 'id': role.id }) }}">Edit</a>
+                        <a class="button action-button danger" href="{{ path('role_confirm_delete', { 'id': role.id }) }}">Delete</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No roles found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
 {% endblock %}

@@ -27,25 +27,9 @@ class Account
     #[ORM\JoinColumn(nullable: false)]
     private ?Employee $employee = null;
 
-    public function __construct(
-        ?string $name = null,
-        ?string $type = null,
-        ?\DateTime $expiration = null
-    ) {
-        $this->name = $name;
-        $this->type = $type;
-        $this->expiration = $expiration;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function getName(): ?string

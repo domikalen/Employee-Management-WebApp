@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-
 class AccountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

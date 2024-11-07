@@ -18,7 +18,6 @@
                         <div class="employee-details">
                             <strong>{{ employee.name }}:</strong>
                             {% set visibleRoles = employee.roles|filter(role => role.isVisible) %}
-
                             {% for role in visibleRoles %}
                                 {{ role.title }}{% if not loop.index == visibleRoles|length %}, {% endif %}
                             {% endfor %}

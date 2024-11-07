@@ -1,14 +1,18 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
     <section class="form-section">
         <h2 class="form-title">{{ title }}</h2>
         {{ form_start(form) }}
+
         <div class="form-fields">
             {{ form_row(form.name, {'label': 'Account Name'}) }}
             {{ form_row(form.type, {'label': 'Type'}) }}
-            {{ form_row(form.expiration, {'label': 'Expiration (leave blank for Permanent) '}) }}
+            {{ form_row(form.expiration, {'label': 'Expiration (leave blank for Permanent)'}) }}
         </div>
+
         <button type="submit" class="form-button primary">{{ button_text }}</button>
         {{ form_end(form) }}
     </section>

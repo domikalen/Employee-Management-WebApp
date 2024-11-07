@@ -64,3 +64,18 @@ ul li .employee-actions {
     margin-right: 0.3rem;
     vertical-align: middle;
 }
+
+@media (max-width: 768px) {
+    ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    ul li .employee-actions {
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .employee-action {
+        width: 100%;
+        margin-top: var(--padding-small);
+    }
+}
