@@ -8,68 +8,54 @@
     --form-button-hover-bg-color: #0056b3;
     --form-font-size: 1rem;
     --form-max-width: 50%;
-    --image-size: 6rem;
+    --form-title-color: #333;
+    --roles-container-bg: #f9f9f9;
+    --roles-item-padding: 0.5rem;
+    --roles-item-border: 1px solid var(--form-input-border-color);
+    --roles-item-radius: 0.25rem;
+    --roles-item-spacing: 0.5rem;
 }
 
-.employee-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.form-section {
     background-color: var(--form-bg-color);
     padding: var(--form-padding);
     border-radius: var(--form-border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     max-width: var(--form-max-width);
     margin: 2rem auto;
 }
 
-.form-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--form-padding);
-    width: 100%;
-}
-
-.form-fields {
-    display: flex;
-    flex-direction: column;
-    gap: var(--padding-small);
-    width: 100%;
-}
-
-.large-textarea {
-    height: 12rem;
-    resize: vertical;
-    padding: var(--padding-small);
-    text-align: left;
-    vertical-align: top;
-    overflow-y: auto;
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--form-title-color);
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="datetime-local"],
 textarea,
 select {
     width: 100%;
-    padding: var(--padding-small);
+    padding: 0.8rem;
     font-size: var(--form-font-size);
     border: 1px solid var(--form-input-border-color);
     border-radius: var(--form-border-radius);
     transition: border-color 0.3s ease;
-    text-align: left;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
+input:focus,
 textarea:focus,
 select:focus {
     border-color: var(--form-input-focus-border-color);
+    outline: none;
 }
 
 button.form-button {
-    padding: var(--padding-small) var(--padding-base);
+    padding: 0.8rem 1.5rem;
     font-size: var(--form-font-size);
     border: none;
     border-radius: var(--form-border-radius);
@@ -77,8 +63,10 @@ button.form-button {
     cursor: pointer;
     background-color: var(--form-button-bg-color);
     transition: background-color 0.3s ease;
-    width: auto;
-    margin-top: var(--padding-small);
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 200px;
+    display: block;
 }
 
 button.form-button:hover {
@@ -91,3 +79,100 @@ button.form-button:hover {
     margin-top: 0.5rem;
 }
 
+.roles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--roles-item-spacing);
+    padding: var(--form-padding) 0;
+    background-color: var(--roles-container-bg);
+    border-radius: var(--form-border-radius);
+}
+
+.roles-item {
+    display: flex;
+    align-items: center;
+    padding: var(--roles-item-padding);
+    border: var(--roles-item-border);
+    border-radius: var(--roles-item-radius);
+    font-size: var(--form-font-size);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.roles-item:hover {
+    background-color: var(--form-input-border-color);
+}
+
+.roles-item input[type="checkbox"] {
+    margin-right: var(--roles-item-spacing);
+}
+
+.delete-confirmation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: #f8f9fa;
+}
+
+.delete-confirmation-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.delete-confirmation-content h2 {
+    color: #dc3545;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.delete-confirmation-content p {
+    color: #555;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.delete-actions {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+
+.button.danger {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1;
+}
+
+.button.danger:hover {
+    background-color: #c82333;
+}
+
+.button.cancel {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1;
+}
+
+.button.cancel:hover {
+    background-color: #5a6268;
+}

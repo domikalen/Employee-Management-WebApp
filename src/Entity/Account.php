@@ -20,8 +20,8 @@ class Account
     #[ORM\Column(type: 'string', length: 100)]
     private ?string $type = null;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private ?string $expiration = null;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $expiration = null;
 
     #[ORM\ManyToOne(targetEntity: Employee::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,7 +30,7 @@ class Account
     public function __construct(
         ?string $name = null,
         ?string $type = null,
-        ?string $expiration = null
+        ?\DateTime $expiration = null
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -70,12 +70,12 @@ class Account
         return $this;
     }
 
-    public function getExpiration(): ?string
+    public function getExpiration(): ?\DateTime
     {
         return $this->expiration;
     }
 
-    public function setExpiration(string $expiration): self
+    public function setExpiration(?\DateTime $expiration): self
     {
         $this->expiration = $expiration;
         return $this;

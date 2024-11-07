@@ -1,11 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Účty zaměstnance - {{ employee.name }}{% endblock %}
+{% block title %}Employee Accounts - {{ employee.name }}{% endblock %}
 
 {% block content %}
     <section>
-        <h2>Účty pro {{ employee.name }}</h2>
-        <p>Role: {{ employee.role.title }}</p>
+        <h2>Accounts for {{ employee.name }}</h2>
+        <p>Roles:
+            {% for role in employee.roles %}
+                {{ role.title }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
 
         <div class="add-account-button-container">
             <a href="{{ path('account_new', { 'employee_id': employee.id }) }}" class="add-account-button">
@@ -16,11 +20,11 @@
         <table>
             <thead>
             <tr>
-                <th>Název účtu</th>
-                <th>Typ účtu</th>
-                <th>Expirace</th>
-                <th>Upravit</th>
-                <th>Odstranit</th>
+                <th>Account Name</th>
+                <th>Type</th>
+                <th>Expiration</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -28,9 +32,9 @@
                 <tr>
                     <td>{{ account.name }}</td>
                     <td>{{ account.type }}</td>
-                    <td>{{ account.expiration }}</td>
+                    <td>{{ account.expiration ? account.expiration|date('Y-m-d H:i:s') : 'Permanent' }}</td>
                     <td>
-                        <a href="{{ path('account_edit', { 'id': account.id }) }}" class="action-button btn-edit">
+                        <a href="{{ path('account_edit', { 'employee_id': employee.id, 'id': account.id }) }}" class="action-button btn-edit">
                             <span class="icon">✏️</span> Edit
                         </a>
                     </td>
@@ -45,7 +49,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">Žádné účty nejsou dostupné.</td>
+                    <td colspan="5">No accounts available.</td>
                 </tr>
             {% endfor %}
             </tbody>

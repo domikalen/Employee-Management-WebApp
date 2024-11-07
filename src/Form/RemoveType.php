@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -11,8 +10,9 @@ class RemoveType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('submit', SubmitType::class, [
-                'label' => 'Odstranit',
+            ->add('confirm', SubmitType::class, [
+                'label' => 'Delete Role',
+                'attr' => ['class' => 'button danger'],
             ]);
     }
 }

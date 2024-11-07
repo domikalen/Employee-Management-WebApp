@@ -17,7 +17,7 @@ class EmployeeAccountsController extends AbstractController
         $this->accountRepository = $accountRepository;
     }
 
-    #[Route(path: '/employees_account/{id}', name: 'employee_account')]
+    #[Route(path: '/employee/{id}/account', name: 'employee_account')]
     public function account(Employee $employee): Response
     {
         $accounts = $this->accountRepository->findBy(['employee' => $employee]);

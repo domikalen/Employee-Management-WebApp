@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% import 'macros/pagination.html.twig' as pagination %}
-{% block title %}Seznam zaměstnanců{% endblock %}
+{% block title %}Employee List{% endblock %}
 
 {% block content %}
     <section>
         <div class="header-with-button">
-            <h2>Seznam zaměstnanců</h2>
-            <a href="{{ path('employee_form') }}" class="button add-employee-button">➕ Add Employee</a>
+            <h2>Employee List</h2>
+            <a href="{{ path('employee_create') }}" class="button add-employee-button">➕ Add Employee</a>
         </div>
 
         <ul>
@@ -16,23 +16,28 @@
                     <div class="employee-info">
                         <img src="{{ employee.image }}" alt="{{ employee.name }}">
                         <div class="employee-details">
-                            <strong>{{ employee.name }}:</strong> {{ employee.role.title }}
+                            <strong>{{ employee.name }}:</strong>
+                            {% set visibleRoles = employee.roles|filter(role => role.isVisible) %}
+
+                            {% for role in visibleRoles %}
+                                {{ role.title }}{% if not loop.index == visibleRoles|length %}, {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="employee-actions">
-                        <a class="employee-action" href="{{ path('details', { 'id': employee.id }) }}">
+                        <a class="employee-action" href="{{ path('employee_detail', { id: employee.id }) }}">
                             <span class="icon">📄</span> Detail
                         </a>
-                        <a class="employee-action" href="{{ path('employee_account', { 'id': employee.id }) }}">
-                            <span class="icon">🔑</span> Účty
+                        <a class="employee-action" href="{{ path('employee_account', { id: employee.id }) }}">
+                            <span class="icon">🔑</span> Accounts
                         </a>
-                        <a class="employee-action" href="{{ path('employee_form', { 'id': employee.id }) }}">
+                        <a class="employee-action" href="{{ path('employee_detail_edit', { 'id': employee.id }) }}">
                             <span class="icon">✏️</span> Edit
                         </a>
                     </div>
                 </li>
             {% else %}
-                <li>Žádní zaměstnanci nejsou dostupní.</li>
+                <li>No employees available.</li>
             {% endfor %}
         </ul>
 

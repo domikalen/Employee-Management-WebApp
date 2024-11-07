@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Detail zaměstnance{% endblock %}
+{% block title %}Employee Details{% endblock %}
 
 {% block content %}
     <section class="employee-detail">
@@ -14,16 +14,24 @@
             </div>
             <div class="employee-info-container">
                 <h2>{{ employee.name }}</h2>
-                <p><strong>Funkce:</strong> {{ employee.role.title }}</p>
-                <p><strong>Popis role:</strong> {{ employee.role.description }}</p>
-                <p><strong>Kontaktní údaje:</strong> {{ employee.phone }}, {{ employee.email }}</p>
-                <h3>Popis:</h3>
+                <p><strong>Roles:</strong>
+                    {% for role in employee.roles %}
+                        {{ role.title }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Role Description:</strong>
+                    {% for role in employee.roles %}
+                        {{ role.description }}{% if not loop.last %}; {% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Contact:</strong> {{ employee.phone }}, {{ employee.email }}</p>
+                <h3>Description:</h3>
                 <p>{{ employee.description }}</p>
             </div>
         </div>
 
         <div class="employee-actions">
-            <a href="{{ path('employee_form', { id: employee.id }) }}" class="action-button btn-edit">
+            <a href="{{ path('employee_detail_edit', { id: employee.id }) }}" class="action-button btn-edit">
                 <span class="icon">✏️</span> Edit
             </a>
             <form action="{{ path('employee_delete', { id: employee.id }) }}" method="post" style="display:inline;">

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -21,14 +23,19 @@ class Role
     #[ORM\Column(type: 'boolean')]
     private bool $isVisible;
 
+    #[ORM\ManyToMany(targetEntity: Employee::class, mappedBy: 'roles')]
+    private Collection $employees;
+
     public function __construct(
         ?string $title = null,
         ?string $description = null,
         bool $isVisible = true
+
     ) {
         $this->title = $title;
         $this->description = $description;
         $this->isVisible = $isVisible;
+        $this->employees = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -67,4 +74,27 @@ class Role
         $this->isVisible = $isVisible;
         return $this;
     }
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
+    public function addEmployee(Employee $employee): self
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees->add($employee);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): self
+    {
+        if ($this->employees->contains($employee)) {
+            $this->employees->removeElement($employee);
+        }
+
+        return $this;
+    }
+
 }

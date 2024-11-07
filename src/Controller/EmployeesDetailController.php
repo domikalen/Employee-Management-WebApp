@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Repository\EmployeeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class EmployeesDetailController extends AbstractController
 {
@@ -16,7 +16,7 @@ class EmployeesDetailController extends AbstractController
         $this->employeeRepository = $employeeRepository;
     }
 
-    #[Route(path: '/employees_detail/{id}', name: 'details')]
+    #[Route(path: '/employee/{id}/detail', name: 'employee_detail')]
     public function detail(int $id): Response
     {
         $employee = $this->employeeRepository->find($id);

@@ -30,7 +30,7 @@ class ImportData
         $employeesData = [
             [
                 'name' => 'Karlos Huares',
-                'role' => 'Ředitel',
+                'roles' => ['Ředitel'],
                 'image' => '/images/karlos_huares.jpg',
                 'phone' => '+420 123 456 780',
                 'email' => 'karlos@example.com',
@@ -38,7 +38,7 @@ class ImportData
             ],
             [
                 'name' => 'Richard Gere',
-                'role' => 'Manažer',
+                'roles' => ['Manažer'],
                 'image' => '/images/richard_gere.jpg',
                 'phone' => '+420 987 654 321',
                 'email' => 'richard@example.com',
@@ -46,7 +46,7 @@ class ImportData
             ],
             [
                 'name' => 'Tokaev Tigr',
-                'role' => 'Diktátor',
+                'roles' => ['Diktátor'],
                 'image' => '/images/tokaev_tigr.jpg',
                 'phone' => '+420 999 999 999',
                 'email' => 'president@example.com',
@@ -54,7 +54,7 @@ class ImportData
             ],
             [
                 'name' => 'Phil Hellmuth',
-                'role' => 'CEO',
+                'roles' => ['CEO'],
                 'image' => '/images/phil_hellmuth.jpg',
                 'phone' => '+420 777 777 777',
                 'email' => 'gambler@example.com',
@@ -62,7 +62,7 @@ class ImportData
             ],
             [
                 'name' => 'Eric Cartman',
-                'role' => 'CEO',
+                'roles' => ['CEO'],
                 'image' => '/images/eric_cartman.jpg',
                 'phone' => '+420 666 666 666',
                 'email' => 'benladen@example.com',
@@ -70,7 +70,7 @@ class ImportData
             ],
             [
                 'name' => 'Nacho Varga',
-                'role' => 'Distributor',
+                'roles' => ['Distributor'],
                 'image' => '/images/nacho_varga.jpg',
                 'phone' => '+420 123 456 789',
                 'email' => 'bettercallsoul@example.com',
@@ -78,7 +78,7 @@ class ImportData
             ],
             [
                 'name' => 'Mike Ehrmantraut',
-                'role' => 'Security Consultant',
+                'roles' => ['Security Consultant'],
                 'image' => '/images/mike_ehrmantraut.jpg',
                 'phone' => '+420 333 555 777',
                 'email' => 'mike@example.com',
@@ -86,7 +86,7 @@ class ImportData
             ],
             [
                 'name' => 'Saul Goodman',
-                'role' => 'Lawyer',
+                'roles' => ['Lawyer'],
                 'image' => '/images/saul_goodman.jpg',
                 'phone' => '+420 888 999 000',
                 'email' => 'saul@example.com',
@@ -94,7 +94,7 @@ class ImportData
             ],
             [
                 'name' => 'Walter White',
-                'role' => 'Chemist',
+                'roles' => ['Chemist'],
                 'image' => '/images/walter_white.jpg',
                 'phone' => '+420 444 555 666',
                 'email' => 'walter@example.com',
@@ -102,7 +102,7 @@ class ImportData
             ],
             [
                 'name' => 'Skyler White',
-                'role' => 'Accountant',
+                'roles' => ['Accountant'],
                 'image' => '/images/skyler_white.jpg',
                 'phone' => '+420 555 666 777',
                 'email' => 'skyler@example.com',
@@ -110,7 +110,7 @@ class ImportData
             ],
             [
                 'name' => 'Jesse Pinkman',
-                'role' => 'Distributor',
+                'roles' => ['Distributor'],
                 'image' => '/images/jesse_pinkman.jpg',
                 'phone' => '+420 777 888 999',
                 'email' => 'jesse@example.com',
@@ -118,7 +118,7 @@ class ImportData
             ],
             [
                 'name' => 'Gus Fring',
-                'role' => 'CEO',
+                'roles' => ['CEO'],
                 'image' => '/images/gus_fring.jpg',
                 'phone' => '+420 666 777 888',
                 'email' => 'gus@example.com',
@@ -126,7 +126,7 @@ class ImportData
             ],
             [
                 'name' => 'Hank Schrader',
-                'role' => 'DEA Agent',
+                'roles' => ['DEA Agent'],
                 'image' => '/images/hank_schrader.jpg',
                 'phone' => '+420 123 654 789',
                 'email' => 'hank@example.com',
@@ -134,7 +134,7 @@ class ImportData
             ],
             [
                 'name' => 'Marie Schrader',
-                'role' => 'Radiologic Technician',
+                'roles' => ['Radiologic Technician'],
                 'image' => '/images/marie_schrader.jpg',
                 'phone' => '+420 987 123 654',
                 'email' => 'marie@example.com',
@@ -142,7 +142,7 @@ class ImportData
             ],
             [
                 'name' => 'Todd Alquist',
-                'role' => 'Lab Assistant',
+                'roles' => ['Lab Assistant'],
                 'image' => '/images/todd_alquist.jpg',
                 'phone' => '+420 456 789 123',
                 'email' => 'todd@example.com',
@@ -150,7 +150,7 @@ class ImportData
             ],
             [
                 'name' => 'Lydia Rodarte-Quayle',
-                'role' => 'Logistics Manager',
+                'roles' => ['Logistics Manager'],
                 'image' => '/images/lydia_rodarte_quayle.jpg',
                 'phone' => '+420 321 654 987',
                 'email' => 'lydia@example.com',
@@ -161,73 +161,74 @@ class ImportData
 
         $accountsData = [
             1 => [
-                ['name' => 'Primary Email', 'type' => 'Email/Password + 2FA', 'expiration' => 'Permanent'],
-                ['name' => 'Admin Access', 'type' => 'Smartcard with Biometrics', 'expiration' => 'Temporary (3 months)'],
+                ['name' => 'Primary Email', 'type' => 'Email/Password + 2FA', 'expiration' => '2025-01-01 23:59:59'],
+                ['name' => 'Admin Access', 'type' => 'Smartcard with Biometrics', 'expiration' => '2024-03-01 23:59:59'],
             ],
             2 => [
-                ['name' => 'Corporate Account', 'type' => 'SSO (Single Sign-On)', 'expiration' => 'Permanent'],
-                ['name' => 'Admin Access', 'type' => 'Keycard + PIN', 'expiration' => 'Temporary (6 months)'],
+                ['name' => 'Corporate Account', 'type' => 'SSO (Single Sign-On)', 'expiration' => '2025-06-30 23:59:59'],
+                ['name' => 'Admin Access', 'type' => 'Keycard + PIN', 'expiration' => '2024-12-01 23:59:59'],
             ],
             3 => [
-                ['name' => 'Business Email', 'type' => 'Username/Password + MFA', 'expiration' => 'Permanent'],
-                ['name' => 'Super Admin', 'type' => 'Biometric Card', 'expiration' => 'Temporary (7 years)'],
-                ['name' => 'KNB Admin', 'type' => 'gun', 'expiration' => 'Temporary (7 years)'],
-                ['name' => 'The office of the President', 'type' => 'extortion', 'expiration' => 'Temporary (7 years)'],
-                ['name' => 'Bandit', 'type' => 'banditry', 'expiration' => 'Temporary (7 years)'],
+                ['name' => 'Business Email', 'type' => 'Username/Password + MFA', 'expiration' => '2026-05-01 23:59:59'],
+                ['name' => 'Super Admin', 'type' => 'Biometric Card', 'expiration' => '2030-07-01 23:59:59'],
+                ['name' => 'KNB Admin', 'type' => 'gun', 'expiration' => '2030-07-01 23:59:59'],
+                ['name' => 'The office of the President', 'type' => 'extortion', 'expiration' => '2030-07-01 23:59:59'],
+                ['name' => 'Bandit', 'type' => 'banditry', 'expiration' => '2030-07-01 23:59:59'],
             ],
             4 => [
-                ['name' => 'Company Portal Login', 'type' => 'Passwordless (Email Link)', 'expiration' => 'Token-based (24 hours)'],
-                ['name' => 'Admin Access', 'type' => 'Encrypted Key + Password', 'expiration' => 'Temporary (6 months)'],
+                ['name' => 'Company Portal Login', 'type' => 'Passwordless (Email Link)', 'expiration' => '2024-01-15 23:59:59'],
+                ['name' => 'Admin Access', 'type' => 'Encrypted Key + Password', 'expiration' => '2024-08-01 23:59:59'],
             ],
             5 => [
-                ['name' => 'Social Media Login', 'type' => 'OAuth (Google/Facebook)', 'expiration' => 'Token-based (1 week)'],
-                ['name' => 'Guest Admin Access', 'type' => 'Time-limited PIN', 'expiration' => 'Temporary (1 week)'],
+                ['name' => 'Social Media Login', 'type' => 'OAuth (Google/Facebook)', 'expiration' => '2024-02-10 23:59:59'],
+                ['name' => 'Guest Admin Access', 'type' => 'Time-limited PIN', 'expiration' => '2024-02-10 23:59:59'],
             ],
             6 => [
-                ['name' => 'Encrypted Email', 'type' => 'Public Key/Private Key Pair', 'expiration' => 'Permanent'],
-                ['name' => 'Root Access', 'type' => 'Smartcard + Password', 'expiration' => 'Temporary (1 year)'],
+                ['name' => 'Encrypted Email', 'type' => 'Public Key/Private Key Pair', 'expiration' => '2025-01-01 23:59:59'],
+                ['name' => 'Root Access', 'type' => 'Smartcard + Password', 'expiration' => '2025-12-01 23:59:59'],
             ],
             7 => [
-                ['name' => 'Security System', 'type' => 'Biometric Card', 'expiration' => 'Permanent'],
-                ['name' => 'Admin Console', 'type' => 'Smartcard + PIN', 'expiration' => 'Temporary (3 months)'],
+                ['name' => 'Security System', 'type' => 'Biometric Card', 'expiration' => '2026-01-01 23:59:59'],
+                ['name' => 'Admin Console', 'type' => 'Smartcard + PIN', 'expiration' => '2024-04-01 23:59:59'],
             ],
             8 => [
-                ['name' => 'Legal Portal', 'type' => 'Username/Password', 'expiration' => 'Permanent'],
-                ['name' => 'Client Records', 'type' => 'Secure Access Token', 'expiration' => 'Temporary (6 months)'],
+                ['name' => 'Legal Portal', 'type' => 'Username/Password', 'expiration' => '2025-01-01 23:59:59'],
+                ['name' => 'Client Records', 'type' => 'Secure Access Token', 'expiration' => '2024-09-01 23:59:59'],
             ],
             9 => [
-                ['name' => 'Chemical Inventory', 'type' => 'RFID Card', 'expiration' => 'Permanent'],
-                ['name' => 'Lab Access', 'type' => 'Smartcard', 'expiration' => 'Temporary (1 year)'],
+                ['name' => 'Chemical Inventory', 'type' => 'RFID Card', 'expiration' => '2025-06-01 23:59:59'],
+                ['name' => 'Lab Access', 'type' => 'Smartcard', 'expiration' => '2025-03-01 23:59:59'],
             ],
             10 => [
-                ['name' => 'Accounting Software', 'type' => 'Two-Factor Auth', 'expiration' => 'Permanent'],
-                ['name' => 'Financial Reports', 'type' => 'Secure Link', 'expiration' => 'Temporary (30 days)'],
+                ['name' => 'Accounting Software', 'type' => 'Two-Factor Auth', 'expiration' => '2025-11-01 23:59:59'],
+                ['name' => 'Financial Reports', 'type' => 'Secure Link', 'expiration' => '2024-03-01 23:59:59'],
             ],
             11 => [
-                ['name' => 'Distribution Dashboard', 'type' => 'Passwordless (SMS)', 'expiration' => 'Token-based (7 days)'],
-                ['name' => 'Admin Rights', 'type' => 'Biometric Authentication', 'expiration' => 'Temporary (2 months)'],
+                ['name' => 'Distribution Dashboard', 'type' => 'Passwordless (SMS)', 'expiration' => '2024-01-20 23:59:59'],
+                ['name' => 'Admin Rights', 'type' => 'Biometric Authentication', 'expiration' => '2024-05-01 23:59:59'],
             ],
             12 => [
-                ['name' => 'Executive Portal', 'type' => 'Username/Password + MFA', 'expiration' => 'Permanent'],
-                ['name' => 'Financial Admin', 'type' => 'Encrypted Key', 'expiration' => 'Temporary (6 months)'],
+                ['name' => 'Executive Portal', 'type' => 'Username/Password + MFA', 'expiration' => '2026-06-01 23:59:59'],
+                ['name' => 'Financial Admin', 'type' => 'Encrypted Key', 'expiration' => '2024-10-01 23:59:59'],
             ],
             13 => [
-                ['name' => 'Case Files', 'type' => 'Password-Protected', 'expiration' => 'Permanent'],
-                ['name' => 'Investigation Portal', 'type' => 'Smartcard + PIN', 'expiration' => 'Temporary (1 year)'],
+                ['name' => 'Case Files', 'type' => 'Password-Protected', 'expiration' => '2025-01-01 23:59:59'],
+                ['name' => 'Investigation Portal', 'type' => 'Smartcard + PIN', 'expiration' => '2025-05-01 23:59:59'],
             ],
             14 => [
-                ['name' => 'Radiology System', 'type' => 'RFID Card', 'expiration' => 'Permanent'],
-                ['name' => 'Patient Records', 'type' => 'Biometric Key', 'expiration' => 'Temporary (3 months)'],
+                ['name' => 'Radiology System', 'type' => 'RFID Card', 'expiration' => '2025-09-01 23:59:59'],
+                ['name' => 'Patient Records', 'type' => 'Biometric Key', 'expiration' => '2024-03-01 23:59:59'],
             ],
             15 => [
-                ['name' => 'Lab Equipment', 'type' => 'Smartcard Access', 'expiration' => 'Permanent'],
-                ['name' => 'Restricted Zone Access', 'type' => 'Secure PIN', 'expiration' => 'Temporary (1 week)'],
+                ['name' => 'Lab Equipment', 'type' => 'Smartcard Access', 'expiration' => '2026-01-01 23:59:59'],
+                ['name' => 'Restricted Zone Access', 'type' => 'Secure PIN', 'expiration' => '2024-01-15 23:59:59'],
             ],
             16 => [
-                ['name' => 'Shipping Database', 'type' => 'Public Key/Private Key Pair', 'expiration' => 'Permanent'],
-                ['name' => 'Logistics Portal', 'type' => 'Time-based OTP', 'expiration' => 'Temporary (1 month)'],
+                ['name' => 'Shipping Database', 'type' => 'Public Key/Private Key Pair', 'expiration' => '2026-02-01 23:59:59'],
+                ['name' => 'Logistics Portal', 'type' => 'Time-based OTP', 'expiration' => '2024-05-01 23:59:59'],
             ],
         ];
+
 
         $rolesData = [
             ['title' => 'Ředitel', 'description' => 'Top-level manager responsible for the entire organization', 'isVisible' => true],
@@ -278,34 +279,44 @@ class ImportData
         $this->entityManager->flush();
 
         foreach ($employeesData as $empData) {
-            // Check if an employee with this phone number already exists
             $existingEmployee = $this->entityManager->getRepository(Employee::class)->findOneBy(['phone' => $empData['phone']]);
 
             if ($existingEmployee) {
                 echo "Employee with phone " . $empData['phone'] . " already exists. Skipping import for this employee.\n";
-                continue; // Skip to the next employee if duplicate phone found
+                continue;
             }
 
             $employee = new Employee();
             $employee->setName($empData['name']);
-            $employee->setRole($roles[$empData['role']]);  // Set Role entity
             $employee->setImage($empData['image']);
             $employee->setPhone($empData['phone']);
             $employee->setEmail($empData['email']);
             $employee->setDescription($empData['description']);
+
+            $empRoles = $empData['roles'] ?? [];
+            foreach ($empRoles as $roleTitle) {
+                if (isset($roles[$roleTitle])) {
+                    $employee->addRole($roles[$roleTitle]);
+                }
+            }
+
             $this->entityManager->persist($employee);
             $employees[] = $employee;
         }
+
         $this->entityManager->flush();
 
-
+        // The rest of the accounts import logic remains the same
         foreach ($accountsData as $employeeId => $accDataArray) {
             $employee = $employees[$employeeId - 1];
             foreach ($accDataArray as $accData) {
                 $account = new Account();
                 $account->setName($accData['name']);
                 $account->setType($accData['type']);
-                $account->setExpiration($accData['expiration']);
+
+                $expirationDate = \DateTime::createFromFormat('Y-m-d H:i:s', $accData['expiration']);
+                $account->setExpiration($expirationDate);
+
                 $account->setEmployee($employee);
                 $this->entityManager->persist($account);
             }

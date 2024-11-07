@@ -21,7 +21,7 @@ class AccountController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/account/new/{employee_id}', name: 'account_new', requirements: ['employee_id' => '\d+'])]
+    #[Route('/employee/{employee_id}/account/new', name: 'account_new', requirements: ['employee_id' => '\d+'])]
     public function new(Request $request, int $employee_id): Response
     {
         $employee = $this->entityManager->getRepository(Employee::class)->find($employee_id);
@@ -45,27 +45,36 @@ class AccountController extends AbstractController
 
         return $this->render('account/form.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Create a New Account for ' . $employee->getName(),
-            'button_text' => 'Save Account',
+            'employee' => $employee,
+            'title' => 'Create a New Account',
+            'button_text' => 'Save Account'
         ]);
     }
 
-    #[Route('/account/{id}/edit', name: 'account_edit')]
-    public function edit(Request $request, Account $account): Response
+    #[Route('/employee/{employee_id}/account/{id}/edit', name: 'account_edit')]
+    public function edit(Request $request, int $employee_id, Account $account): Response
     {
+        $employee = $this->entityManager->getRepository(Employee::class)->find($employee_id);
+
+        if (!$employee || $account->getEmployee()->getId() !== $employee_id) {
+            throw $this->createNotFoundException('Account or Employee not found.');
+        }
+
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('employee_account', ['id' => $account->getEmployee()->getId()]);
+            return $this->redirectToRoute('employee_account', ['id' => $employee->getId()]);
         }
 
         return $this->render('account/form.html.twig', [
             'form' => $form->createView(),
-            'title' => 'Edit Account for ' . $account->getEmployee()->getName(),
-            'button_text' => 'Update Account',
+            'account' => $account,
+            'employee' => $employee,
+            'title' => 'Edit Account',
+            'button_text' => 'Update Account'
         ]);
     }
 

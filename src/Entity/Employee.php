@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,9 +23,9 @@ class Employee
     #[Assert\NotBlank(message: "Name is required.")]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(targetEntity: Role::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Role $role = null;
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'employees')]
+    #[ORM\JoinTable(name: "employee_roles")]
+    private Collection $roles;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = "/images/new_user.jpg";
@@ -42,20 +44,18 @@ class Employee
 
     public function __construct(
         ?string $name = null,
-        ?Role $role = null,
         ?string $image = null,
         ?string $phone = null,
         ?string $email = null,
         ?string $description = null
     ) {
         $this->name = $name;
-        $this->role = $role;
+        $this->roles = new ArrayCollection();
         $this->image = $image;
         $this->phone = $phone;
         $this->email = $email;
         $this->description = $description;
     }
-
 
     public function getId(): ?int
     {
@@ -73,14 +73,28 @@ class Employee
         return $this;
     }
 
-    public function getRole(): ?Role
+    public function getRoles(): Collection
     {
-        return $this->role;
+        return $this->roles;
     }
 
-    public function setRole(?Role $role): self
+    public function addRole(Role $role): self
     {
-        $this->role = $role;
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+            $role->addEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+            $role->removeEmployee($this);
+        }
+
         return $this;
     }
 

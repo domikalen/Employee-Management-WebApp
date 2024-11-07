@@ -64,24 +64,3 @@ ul li .employee-actions {
     margin-right: 0.3rem;
     vertical-align: middle;
 }
-
-.header-with-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--padding-base);
-}
-
-.add-employee-button {
-    background-color: var(--button-bg-color);
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 0.5rem 1rem;
-    font-size: var(--font-size-base);
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.add-employee-button:hover {
-    background-color: var(--button-hover-bg-color);
-}

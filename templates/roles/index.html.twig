@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Roles{% endblock %}
+
+{% block content %}
+    <h2>Roles</h2>
+    <a href="{{ path('role_new') }}" class="button">➕ Add Role</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for role in roles %}
+            <tr>
+                <td>{{ role.title }}</td>
+                <td>{{ role.description }}</td>
+                <td>
+                    <a href="{{ path('role_edit', { 'id': role.id }) }}">Edit</a>
+                    <a href="{{ path('role_confirm_delete', { 'id': role.id }) }}" class="button danger">Delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No roles found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

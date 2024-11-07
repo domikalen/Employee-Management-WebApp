@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 
 class AccountType extends AbstractType
 {
@@ -21,9 +23,11 @@ class AccountType extends AbstractType
                 'label' => 'Type',
                 'required' => true,
             ])
-            ->add('expiration', TextType::class, [
+            ->add('expiration', DateTimeType::class, [
                 'label' => 'Expiration',
                 'required' => false,
+                'widget' => 'single_text',
+                'html5' => true,
             ]);
     }
 

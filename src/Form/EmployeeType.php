@@ -32,16 +32,21 @@ class EmployeeType extends AbstractType
                 'label' => 'Email',
                 'required' => true,
             ])
-            ->add('role', EntityType::class, [
+            ->add('roles', EntityType::class, [
                 'class' => Role::class,
                 'choice_label' => 'title',
-                'label' => 'Role',
+                'label' => 'Roles',
+                'multiple' => true,
+                'expanded' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('r')
                         ->where('r.isVisible = :visible')
                         ->setParameter('visible', true)
                         ->orderBy('r.title', 'ASC');
                 },
+                'attr' => [
+                    'class' => 'roles-container'
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',

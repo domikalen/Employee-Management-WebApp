@@ -44,7 +44,8 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/employee/{id?}', name: 'employee_form', requirements: ['id' => '\d+'])]
+    #[Route('/employee/create', name: 'employee_create')]
+    #[Route('/employee/{id}/detail/edit', name: 'employee_detail_edit', requirements: ['id' => '\d+'])]
     public function form(Request $request, Employee $employee = null): Response
     {
         $isNew = !$employee;
@@ -58,7 +59,6 @@ class EmployeeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $existingEmployeeByPhone = $this->entityManager->getRepository(Employee::class)->findOneBy(['phone' => $employee->getPhone()]);
             $existingEmployeeByEmail = $this->entityManager->getRepository(Employee::class)->findOneBy(['email' => $employee->getEmail()]);
-
 
             if ($form->isValid()) {
                 $imageFile = $form->get('image')->getData();
@@ -80,7 +80,6 @@ class EmployeeController extends AbstractController
             'isNew' => $isNew,
         ]);
     }
-
 
     private function handleImageUpload(?UploadedFile $imageFile, string $directory, ?string $currentImagePath): string
     {
@@ -104,7 +103,6 @@ class EmployeeController extends AbstractController
 
         return "/images/" . $newFilename;
     }
-
 
     #[Route('/employee/{id}/delete', name: 'employee_delete', requirements: ['id' => '\d+'])]
     public function delete(Employee $employee): Response
