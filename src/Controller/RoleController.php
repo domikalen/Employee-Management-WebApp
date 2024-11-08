@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Form\RoleType;
 use App\Form\RemoveType;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,19 +14,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoleController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private PaginationService $paginationService;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, PaginationService $paginationService)
     {
         $this->entityManager = $entityManager;
+        $this->paginationService = $paginationService;
     }
 
-    #[Route('/roles', name: 'role_index')]
-    public function index(): Response
+    #[Route('/roles/{page}', name: 'role_index', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
+    public function index(int $page = 1): Response
     {
-        $roles = $this->entityManager->getRepository(Role::class)->findAll();
+        $totalItems = $this->entityManager->getRepository(Role::class)->count([]);
+
+        $pagination = $this->paginationService->getPagination($totalItems, $page);
+        $offset = ($page - 1) * $this->paginationService->getItemsPerPage();
+
+        $roles = $this->entityManager->getRepository(Role::class)->findBy(
+            [],
+            null,
+            $this->paginationService->getItemsPerPage(),
+            $offset
+        );
 
         return $this->render('roles/index.html.twig', [
             'roles' => $roles,
+            'pagination' => $pagination,
         ]);
     }
 

@@ -16,7 +16,9 @@
                 <h2>{{ employee.name }}</h2>
                 <p><strong>Roles:</strong>
                     {% for role in employee.roles %}
-                        {{ role.title }}{% if not loop.last %}, {% endif %}
+                        {% if role.isVisible %}
+                            {{ role.title }}{% if not loop.last %}, {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </p>
                 <p><strong>Role Description:</strong>

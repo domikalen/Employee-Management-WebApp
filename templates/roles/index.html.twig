@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Roles{% endblock %}
+{% import 'macros/pagination.html.twig' as pagination %}
 
 {% block content %}
     <section>
@@ -38,6 +39,11 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
+        <div class="pagination-container">
+            <div class="pagination">
+                {{ pagination.render(pagination, 'role_index') }}
+            </div>
         </div>
     </section>
 {% endblock %}

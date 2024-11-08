@@ -42,8 +42,10 @@
             {% endfor %}
         </ul>
 
-        <div class="pagination">
-            {{ pagination.render(pagination, 'employees') }}
+        <div class="pagination-container">
+            <div class="pagination">
+                {{ pagination.render(pagination, 'employees') }}
+            </div>
         </div>
     </section>
 {% endblock %}
