@@ -12,9 +12,9 @@
             <div class="delete-actions">
                 {{ form_start(form, { 'action': path('role_delete', { 'id': role.id }), 'method': 'POST' }) }}
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ role.id) }}">
-                <button type="submit" class="button danger">Delete Role</button>
+                <button type="submit" class="button delete_button">Delete</button>
                 {{ form_end(form, { 'render_rest': false }) }}
-                <a href="{{ path('role_index') }}" class="button cancel">Cancel</a>
+                <a href="{{ path('role_index') }}" class="button cancel_button">Cancel</a>
             </div>
         </div>
     </section>

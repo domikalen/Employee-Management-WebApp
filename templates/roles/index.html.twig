@@ -6,9 +6,11 @@
     <section>
         <div class="header-with-button">
             <h2>Roles</h2>
-            <a href="{{ path('role_new') }}" class="button add-role-button">➕ Add Role</a>
+            <div class="add-button-container">
+                <a href="{{ path('role_new') }}" class="button add_button">New</a>
+            </div>
         </div>
-
+        <div class="table-container">
         <table>
             <thead>
             <tr>
@@ -23,8 +25,10 @@
                     <td>{{ role.title }}</td>
                     <td>{{ role.description }}</td>
                     <td>
-                        <a class="button action-button edit" href="{{ path('role_edit', { 'id': role.id }) }}">Edit</a>
-                        <a class="button action-button danger" href="{{ path('role_confirm_delete', { 'id': role.id }) }}">Delete</a>
+                        <div class="employee-actions">
+                            <a class="button edit_button" href="{{ path('role_edit', { 'id': role.id }) }}"></a>
+                            <a class="button delete_button" href="{{ path('role_confirm_delete', { 'id': role.id }) }}"></a>
+                        </div>
                     </td>
                 </tr>
             {% else %}
@@ -34,5 +38,6 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
     </section>
 {% endblock %}

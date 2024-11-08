@@ -21,37 +21,10 @@ th {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
+    background-color: var(--button-color-background);
 }
 
 tbody tr:hover {
-    background-color: #ececec;
+    background-color: var(--button-color-background);
 }
 
-.edit-button, .delete-button {
-    display: inline-block;
-    padding: var(--button-padding);
-    font-size: var(--font-size-base);
-    border-radius: var(--border-radius);
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-}
-
-.edit-button {
-    background-color: var(--edit-button-color);
-}
-
-.edit-button:hover {
-    background-color: var(--edit-button-hover-color);
-}
-
-.delete-button {
-    background-color: var(--delete-button-color);
-}
-
-.delete-button:hover {
-    background-color: var(--delete-button-hover-color);
-}

@@ -1,8 +1,16 @@
 :root {
     --main-bg-color: #f5f5f5;
     --main-text-color: #333;
-    --header-bg-color: #424242;
-    --button-bg-color: #757575;
+    --header-bg-color: #1a4c98;
+
+    --button-border-color: #4d7ddc;
+    --button-color-background : #ffffff;
+    --button-text-color: #322e2e;
+
+    --add-button-color : #ffff;
+    --button-hover-color: #3b72c1;
+
+
     --button-hover-bg-color: #616161;
     --highlight-color: #007BFF;
     --table-header-bg: #f5f5f5;
@@ -17,10 +25,15 @@
     --image-size: 6rem;
     --button-size: 7rem;
     --button-padding: 0.5rem 1rem;
-    --edit-button-color: #28a745;
-    --edit-button-hover-color: #218838;
+
+
+    --edit-button-icon-color: #ffffff;
+    --edit-button-text-color: #ffffff;
+
     --delete-button-color: #dc3545;
     --delete-button-hover-color: #c82333;
+    --delete-button-color-background: #ffffff;
+    --delete-button-color_hover: #b34545;
 }
 
 body {
@@ -46,23 +59,6 @@ nav {
     margin-bottom: var(--padding-base);
 }
 
-a.button {
-    display: inline-block;
-    background-color: var(--button-bg-color);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    padding: var(--padding-small) var(--padding-base);
-    font-size: var(--font-size-base);
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    width: var(--button-size);
-    text-align: center;
-}
-
-a.button:hover {
-    background-color: var(--button-hover-bg-color);
-}
 
 main {
     padding: var(--padding-base);
@@ -101,16 +97,112 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Base button styling for all button types */
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color-background);
+    color: var(--button-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    border-radius: var(--border-radius);
+    padding: var(--button-padding);
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: var(--button-hover-color);
+}
+
+
+.edit_button::before {
+    content: "✏️";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.add_button::before {
+    content: "+";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.delete_button::before {
+    content: "🗑️";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.delete_button {
+    color: var(--delete-button-color);
+}
+
+.delete_button:hover {
+    background-color: var(--delete-button-hover-color);
+}
+
+
+.add-button-container,
+.edit_button_container {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 1rem;
+}
+
+.button.cancel_button {
+    background-color: var(--button-color-background);
+    color: var(--main-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    padding: var(--button-padding);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button.cancel_button:hover {
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-text-color);
+}
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--padding-small);
+}
+
+table {
+    min-width: 600px;
+    white-space: nowrap;
+    width: 100%;
+}
+/*Mobile*/
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
         gap: var(--padding-small);
     }
 
-    a.button {
+    h1.button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.95rem;
         width: 100%;
-        padding: 0.5rem;
-        font-size: 0.9rem;
+        margin-top: 0.4rem;
+        border-radius: 0.3rem;
     }
 
     h1 {
@@ -120,4 +212,8 @@ a:hover {
     h2 {
         font-size: 1.2rem;
     }
+    table {
+        font-size: 0.9rem;
+    }
+
 }

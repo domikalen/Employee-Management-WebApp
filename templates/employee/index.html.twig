@@ -7,7 +7,9 @@
     <section>
         <div class="header-with-button">
             <h2>Employee List</h2>
-            <a href="{{ path('employee_create') }}" class="button add-employee-button">➕ Add Employee</a>
+            <div class="add-button-container">
+                <a href="{{ path('employee_create') }}" class="button add_button">New</a>
+            </div>
         </div>
 
         <ul>
@@ -18,21 +20,21 @@
                         <div class="employee-details">
                             <strong>{{ employee.name }}:</strong>
                             {% set visibleRoles = employee.roles|filter(role => role.isVisible) %}
-                            {% for role in visibleRoles %}
-                                {{ role.title }}{% if not loop.index == visibleRoles|length %}, {% endif %}
+                            {% for role in employee.roles %}
+                                {% if role.isVisible %}
+                                    {{ role.title }}{% if not loop.last %}, {% endif %}
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
                     <div class="employee-actions">
-                        <a class="employee-action" href="{{ path('employee_detail', { id: employee.id }) }}">
+                        <a class="button" href="{{ path('employee_detail', { id: employee.id }) }}">
                             <span class="icon">📄</span> Detail
                         </a>
-                        <a class="employee-action" href="{{ path('employee_account', { id: employee.id }) }}">
+                        <a class="button" href="{{ path('employee_account', { id: employee.id }) }}">
                             <span class="icon">🔑</span> Accounts
                         </a>
-                        <a class="employee-action" href="{{ path('employee_detail_edit', { 'id': employee.id }) }}">
-                            <span class="icon">✏️</span> Edit
-                        </a>
+                        <a class="button edit_button" href="{{ path('employee_detail_edit', { 'id': employee.id }) }}"></a>
                     </div>
                 </li>
             {% else %}

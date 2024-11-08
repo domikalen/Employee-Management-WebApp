@@ -60,25 +60,3 @@
     margin-top: var(--padding-base);
 }
 
-.add-account-button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: var(--padding-base);
-}
-
-.add-account-button {
-    padding: var(--padding-small) var(--padding-base);
-    background-color: var(--button-bg-color);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-base);
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    min-width: 7rem;
-}
-
-.add-account-button:hover {
-    background-color: var(--button-hover-bg-color);
-}

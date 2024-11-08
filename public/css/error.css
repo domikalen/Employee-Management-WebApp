@@ -1,5 +1,4 @@
 
-
 .error-page {
     text-align: center;
     color: #D32F2F;
@@ -18,7 +17,7 @@
 
 .error-page a {
     display: inline-block;
-    background-color: var(--button-bg-color);
+    background-color: var(--button-color-background);
     color: white;
     padding: var(--padding-small) var(--padding-base);
     border-radius: var(--border-radius);
