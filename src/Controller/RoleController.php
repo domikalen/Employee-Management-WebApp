@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Role;
 use App\Form\RoleType;
 use App\Form\RemoveType;
+use App\Service\RoleService;
 use App\Service\PaginationService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,32 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RoleController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
+    private RoleService $roleService;
     private PaginationService $paginationService;
 
-    public function __construct(EntityManagerInterface $entityManager, PaginationService $paginationService)
+    public function __construct(RoleService $roleService, PaginationService $paginationService)
     {
-        $this->entityManager = $entityManager;
+        $this->roleService = $roleService;
         $this->paginationService = $paginationService;
     }
 
     #[Route('/roles/{page}', name: 'role_index', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
     public function index(int $page = 1): Response
     {
-        $totalItems = $this->entityManager->getRepository(Role::class)->count([]);
-
-        $pagination = $this->paginationService->getPagination($totalItems, $page);
-        $offset = ($page - 1) * $this->paginationService->getItemsPerPage();
-
-        $roles = $this->entityManager->getRepository(Role::class)->findBy(
-            [],
-            null,
-            $this->paginationService->getItemsPerPage(),
-            $offset
-        );
+        $paginationData = $this->roleService->getPaginatedRoles($page);
+        $pagination = $this->paginationService->getPagination($paginationData['totalItems'], $page);
 
         return $this->render('roles/index.html.twig', [
-            'roles' => $roles,
+            'roles' => $paginationData['roles'],
             'pagination' => $pagination,
         ]);
     }
@@ -47,24 +39,15 @@ class RoleController extends AbstractController
     #[Route('/role/{id}/edit', name: 'role_edit')]
     public function form(Request $request, Role $role = null): Response
     {
-        $isNew = !$role;
-        if ($isNew) {
-            $role = new Role();
-        }
+        $form = $this->createForm(RoleType::class, $role ?? new Role());
 
-        $form = $this->createForm(RoleType::class, $role);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($role);
-            $this->entityManager->flush();
-
+        if ($this->roleService->processForm($form, $request, $role ?? new Role())) {
             return $this->redirectToRoute('role_index');
         }
 
         return $this->render('roles/form.html.twig', [
             'form' => $form->createView(),
-            'title' => $isNew ? 'Create Role' : 'Edit Role',
+            'title' => $role ? 'Edit Role' : 'Create Role',
         ]);
     }
 
@@ -88,12 +71,7 @@ class RoleController extends AbstractController
     public function delete(Request $request, Role $role): Response
     {
         if ($this->isCsrfTokenValid('delete' . $role->getId(), $request->request->get('_token'))) {
-            foreach ($role->getEmployees() as $employee) {
-                $employee->removeRole($role);
-            }
-
-            $this->entityManager->remove($role);
-            $this->entityManager->flush();
+            $this->roleService->deleteRole($role);
         }
 
         return $this->redirectToRoute('role_index');

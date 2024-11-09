@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Role
@@ -15,13 +16,14 @@ class Role
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Role title is required.")]
     private ?string $title = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
     #[ORM\Column(type: 'boolean')]
-    private bool $isVisible;
+    private bool $isVisible = true;
 
     #[ORM\ManyToMany(targetEntity: Employee::class, mappedBy: 'roles')]
     private Collection $employees;

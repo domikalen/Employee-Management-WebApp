@@ -6,7 +6,7 @@ use App\Entity\Account;
 use App\Entity\Employee;
 use App\Form\AccountType;
 use App\Form\RemoveType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\AccountService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,87 +14,50 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
+    private AccountService $accountService;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(AccountService $accountService)
     {
-        $this->entityManager = $entityManager;
+        $this->accountService = $accountService;
     }
 
     #[Route('/employee/{employee_id}/account/new', name: 'account_new', requirements: ['employee_id' => '\d+'])]
-    public function new(Request $request, int $employee_id): Response
+    #[Route('/employee/{employee_id}/account/{id}/edit', name: 'account_edit', requirements: ['employee_id' => '\d+', 'id' => '\d+'])]
+    public function form(Request $request, int $employee_id, Account $account = null): Response
     {
-        $employee = $this->entityManager->getRepository(Employee::class)->find($employee_id);
+        $employee = $this->accountService->findEmployee($employee_id);
 
         if (!$employee) {
             throw $this->createNotFoundException('Employee not found.');
         }
 
-        $account = new Account();
-        $account->setEmployee($employee);
+        $isNew = !$account;
+        if ($isNew) {
+            $account = new Account();
+        }
 
         $form = $this->createForm(AccountType::class, $account);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($account);
-            $this->entityManager->flush();
-
+        if ($this->accountService->saveAccount($form, $request, $employee)) {
             return $this->redirectToRoute('employee_account', ['id' => $employee->getId()]);
         }
 
         return $this->render('account/form.html.twig', [
             'form' => $form->createView(),
             'employee' => $employee,
-            'title' => 'Create a New Account',
-            'button_text' => 'Save Account'
+            'title' => $isNew ? 'Create a New Account' : 'Edit Account',
+            'button_text' => $isNew ? 'Save Account' : 'Update Account',
         ]);
     }
 
-    #[Route('/employee/{employee_id}/account/{id}/edit', name: 'account_edit')]
-    public function edit(Request $request, int $employee_id, Account $account): Response
-    {
-        $employee = $this->entityManager->getRepository(Employee::class)->find($employee_id);
-
-        if (!$employee || $account->getEmployee()->getId() !== $employee_id) {
-            throw $this->createNotFoundException('Account or Employee not found.');
-        }
-
-        $form = $this->createForm(AccountType::class, $account);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('employee_account', ['id' => $employee->getId()]);
-        }
-
-        return $this->render('account/form.html.twig', [
-            'form' => $form->createView(),
-            'account' => $account,
-            'employee' => $employee,
-            'title' => 'Edit Account',
-            'button_text' => 'Update Account'
-        ]);
-    }
-
-    #[Route('/account/{id}/delete', name: 'account_delete')]
+    #[Route('/account/{id}/delete', name: 'account_delete', methods: ['POST'])]
     public function delete(Request $request, Account $account): Response
     {
-        $form = $this->createForm(RemoveType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $employeeId = $account->getEmployee()->getId();
-            $this->entityManager->remove($account);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('employee_account', ['id' => $employeeId]);
+        if ($this->accountService->deleteAccount($account, $request->request->get('_token'))) {
+            return $this->redirectToRoute('employee_account', ['id' => $account->getEmployee()->getId()]);
         }
 
-        return $this->render('account/delete.html.twig', [
-            'form' => $form->createView(),
-            'account' => $account,
-        ]);
+        $this->addFlash('error', 'Invalid CSRF token.');
+        return $this->redirectToRoute('employee_account', ['id' => $account->getEmployee()->getId()]);
     }
 }

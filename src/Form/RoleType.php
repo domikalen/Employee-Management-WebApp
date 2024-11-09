@@ -14,9 +14,11 @@ class RoleType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Title',
+                'required' => true,
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',
+                'required' => false,
             ])
             ->add('isVisible', null, [
                 'label' => 'Is Visible?',
