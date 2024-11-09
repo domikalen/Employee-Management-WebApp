@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Evidence zaměstnanců - Titulní strana{% endblock %}
+{% block title %}Employee database - Main page{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/index.css') }}" />
@@ -9,7 +9,7 @@
 
 {% block content %}
     <section>
-        <h2>Nejnovější uživatelé</h2>
+        <h2>New employees</h2>
         <ul>
             {% for user in users %}
                 <li>
@@ -17,7 +17,7 @@
                     <strong>{{ user.name }}</strong>
                 </li>
             {% else %}
-                <li>Žádní uživatelé nejsou dostupní.</li>
+                <li>No users are available.</li>
             {% endfor %}
         </ul>
     </section>

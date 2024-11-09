@@ -30,27 +30,27 @@ class ImportData
         $employeesData = [
             [
                 'name' => 'Karlos Huares',
-                'roles' => ['Ředitel'],
+                'roles' => ['Director'],
                 'image' => '/images/karlos_huares.jpg',
                 'phone' => '+420 123 456 780',
                 'email' => 'karlos@example.com',
-                'description' => 'Karlos je odborný manažer, který se soustředí na optimalizaci výkonnosti týmu.',
+                'description' => 'Karlos is a visionary leader with a passion for innovation.',
             ],
             [
                 'name' => 'Richard Gere',
-                'roles' => ['Manažer'],
+                'roles' => ['Manager'],
                 'image' => '/images/richard_gere.jpg',
                 'phone' => '+420 987 654 321',
                 'email' => 'richard@example.com',
-                'description' => 'Richard je zodpovědný za správu projektů a týmů.',
+                'description' => 'Richard is a skilled manager with a focus on team performance optimization.',
             ],
             [
                 'name' => 'Tokaev Tigr',
-                'roles' => ['Diktátor'],
+                'roles' => ['Dictator'],
                 'image' => '/images/tokaev_tigr.jpg',
                 'phone' => '+420 999 999 999',
                 'email' => 'president@example.com',
-                'description' => 'Nejhorší diktátor v historii Kazachstánu.',
+                'description' => 'Main killer from Kazakhstan.',
             ],
             [
                 'name' => 'Phil Hellmuth',
@@ -58,7 +58,7 @@ class ImportData
                 'image' => '/images/phil_hellmuth.jpg',
                 'phone' => '+420 777 777 777',
                 'email' => 'gambler@example.com',
-                'description' => 'Prohrává všechny peníze firmy v kasinu',
+                'description' => 'Lose all money of the company in poker.',
             ],
             [
                 'name' => 'Eric Cartman',
@@ -66,7 +66,7 @@ class ImportData
                 'image' => '/images/eric_cartman.jpg',
                 'phone' => '+420 666 666 666',
                 'email' => 'benladen@example.com',
-                'description' => 'Tajný agent firmy v South Parku',
+                'description' => 'Secret agent',
             ],
             [
                 'name' => 'Nacho Varga',
@@ -74,7 +74,7 @@ class ImportData
                 'image' => '/images/nacho_varga.jpg',
                 'phone' => '+420 123 456 789',
                 'email' => 'bettercallsoul@example.com',
-                'description' => 'Tajný agent firmy v Mexico',
+                'description' => 'Secret agent in Mexico',
             ],
             [
                 'name' => 'Mike Ehrmantraut',
@@ -231,9 +231,9 @@ class ImportData
 
 
         $rolesData = [
-            ['title' => 'Ředitel', 'description' => 'Top-level manager responsible for the entire organization', 'isVisible' => true],
-            ['title' => 'Manažer', 'description' => 'Manager responsible for overseeing projects and teams', 'isVisible' => true],
-            ['title' => 'Diktátor', 'description' => 'High-level executive with authoritarian power', 'isVisible' => false],
+            ['title' => 'Director', 'description' => 'Top-level manager responsible for the entire organization', 'isVisible' => true],
+            ['title' => 'Manager', 'description' => 'Manager responsible for overseeing projects and teams', 'isVisible' => true],
+            ['title' => 'Dictator', 'description' => 'High-level executive with authoritarian power', 'isVisible' => false],
             ['title' => 'Distributor', 'description' => 'Responsible for distribution logistics', 'isVisible' => true],
             ['title' => 'Security Consultant', 'description' => 'Specializes in providing security solutions', 'isVisible' => true],
             ['title' => 'Lawyer', 'description' => 'Handles legal matters and provides counsel', 'isVisible' => true],
@@ -306,7 +306,6 @@ class ImportData
 
         $this->entityManager->flush();
 
-        // The rest of the accounts import logic remains the same
         foreach ($accountsData as $employeeId => $accDataArray) {
             $employee = $employees[$employeeId - 1];
             foreach ($accDataArray as $accData) {
