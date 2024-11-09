@@ -38,15 +38,6 @@ class EmployeeType extends AbstractType
                 'label' => 'Roles',
                 'multiple' => true,
                 'expanded' => true,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('r')
-                        ->where('r.isVisible = :visible')
-                        ->setParameter('visible', true)
-                        ->orderBy('r.title', 'ASC');
-                },
-                'attr' => [
-                    'class' => 'roles-container'
-                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
