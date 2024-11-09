@@ -11,7 +11,7 @@ class PaginationService
         $this->itemsPerPage = $itemsPerPage;
     }
 
-    public function getPagination(int $totalItems, int $currentPage): array
+    public function getPagination(int $totalItems, int $currentPage, ?string $query = null): array
     {
         $totalPages = (int) ceil($totalItems / $this->itemsPerPage);
 
@@ -22,8 +22,10 @@ class PaginationService
             'hasNextPage' => $currentPage < $totalPages,
             'previousPage' => $currentPage > 1 ? $currentPage - 1 : null,
             'nextPage' => $currentPage < $totalPages ? $currentPage + 1 : null,
+            'query' => $query,
         ];
     }
+
 
     public function getItemsPerPage(): int
     {

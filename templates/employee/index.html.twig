@@ -7,6 +7,12 @@
     <section>
         <div class="header-with-button">
             <h2>Employee List</h2>
+            <div class="search-form-container">
+                {{ form_start(form, {'attr': {'class': 'search-form'}}) }}
+                {{ form_widget(form.query) }}
+                <button type="submit" class="button">Search</button>
+                {{ form_end(form) }}
+            </div>
             <div class="add-button-container">
                 <a href="{{ path('employee_create') }}" class="button add_button">New</a>
             </div>
@@ -19,7 +25,6 @@
                         <img src="{{ employee.image }}" alt="{{ employee.name }}">
                         <div class="employee-details">
                             <strong>{{ employee.name }}:</strong>
-                            {% set visibleRoles = employee.roles|filter(role => role.isVisible) %}
                             {% for role in employee.roles %}
                                 {% if role.isVisible %}
                                     {{ role.title }}{% if not loop.last %}, {% endif %}
@@ -43,9 +48,9 @@
         </ul>
 
         <div class="pagination-container">
-            <div class="pagination">
-                {{ pagination.render(pagination, 'employees') }}
-            </div>
+            {{ pagination.render(pagination, 'employees', query) }}
         </div>
+
+
     </section>
 {% endblock %}

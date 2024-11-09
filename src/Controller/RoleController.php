@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SearchType;
 
 class RoleController extends AbstractController
 {
@@ -24,16 +25,34 @@ class RoleController extends AbstractController
     }
 
     #[Route('/roles/{page}', name: 'role_index', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
-    public function index(int $page = 1): Response
+    public function index(Request $request, int $page = 1): Response
     {
-        $paginationData = $this->roleService->getPaginatedRoles($page);
-        $pagination = $this->paginationService->getPagination($paginationData['totalItems'], $page);
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        $searchQuery = $form->get('query')->getData() ?: $request->query->get('query');
+
+        if ($form->isSubmitted() && $form->isValid() && $page !== 1) {
+            return $this->redirectToRoute('role_index', [
+                'page' => 1,
+                'query' => $searchQuery,
+            ]);
+        }
+
+        $paginationData = $this->roleService->getPaginatedRoles($page, $searchQuery);
+        $pagination = $this->paginationService->getPagination(
+            $paginationData['totalItems'],
+            $page,
+            $searchQuery
+        );
 
         return $this->render('roles/index.html.twig', [
+            'form' => $form->createView(),
             'roles' => $paginationData['roles'],
             'pagination' => $pagination,
+            'query' => $searchQuery,
         ]);
     }
+
 
     #[Route('/role/new', name: 'role_new')]
     #[Route('/role/{id}/edit', name: 'role_edit')]

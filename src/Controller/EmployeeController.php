@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SearchType;
 
 class EmployeeController extends AbstractController
 {
@@ -23,16 +24,32 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/employees/{page}', name: 'employees', requirements: ['page' => '\d+'], defaults: ['page' => 1])]
-    public function index(int $page = 1): Response
+    public function index(Request $request, int $page = 1): Response
     {
-        $paginationData = $this->employeeService->getPaginatedEmployees($page);
-        $pagination = $this->paginationService->getPagination($paginationData['totalItems'], $page);
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
 
+        $searchQuery = $form->get('query')->getData() ?: $request->query->get('query');
+        if ($form->isSubmitted() && $form->isValid() && $page !== 1) {
+            return $this->redirectToRoute('employees', [
+                'page' => 1,
+                'query' => $searchQuery,
+            ]);
+        }
+        $paginationData = $this->employeeService->getPaginatedEmployees($page, $searchQuery);
+        $pagination = $this->paginationService->getPagination(
+            $paginationData['totalItems'],
+            $page,
+            $searchQuery
+        );
         return $this->render('employee/index.html.twig', [
+            'form' => $form->createView(),
             'employees' => $paginationData['employees'],
             'pagination' => $pagination,
+            'query' => $searchQuery,
         ]);
     }
+
 
     #[Route('/employee/create', name: 'employee_create')]
     #[Route('/employee/{id}/detail/edit', name: 'employee_detail_edit', requirements: ['id' => '\d+'])]

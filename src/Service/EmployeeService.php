@@ -19,18 +19,20 @@ class EmployeeService
         $this->itemsPerPage = $itemsPerPage;
     }
 
-    public function getPaginatedEmployees(int $page): array
+    public function getPaginatedEmployees(int $page, ?string $searchQuery = null): array
     {
-        $totalItems = $this->entityManager->getRepository(Employee::class)->count([]);
-        $offset = ($page - 1) * $this->itemsPerPage;
-
-        $employees = $this->entityManager->getRepository(Employee::class)->findBy(
-            [],
-            null,
-            $this->itemsPerPage,
-            $offset
-        );
-
+        $queryBuilder = $this->entityManager->getRepository(Employee::class)->createQueryBuilder('e');
+        if ($searchQuery) {
+            $queryBuilder->where('e.name LIKE :search')
+                ->setParameter('search', '%' . $searchQuery . '%');
+        }
+        $totalItems = (clone $queryBuilder)->select('COUNT(e.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        $employees = $queryBuilder->setFirstResult(($page - 1) * $this->itemsPerPage)
+            ->setMaxResults($this->itemsPerPage)
+            ->getQuery()
+            ->getResult();
         return [
             'employees' => $employees,
             'totalItems' => $totalItems,
@@ -38,7 +40,6 @@ class EmployeeService
             'currentPage' => $page,
         ];
     }
-
     public function processForm(FormInterface $form, Request $request, Employee $employee, string $directory): bool
     {
         $form->handleRequest($request);
@@ -58,7 +59,6 @@ class EmployeeService
 
         return false;
     }
-
     public function delete(Employee $employee, string $directory): void
     {
         $imagePath = $directory . $employee->getImage();

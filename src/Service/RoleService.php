@@ -18,17 +18,22 @@ class RoleService
         $this->itemsPerPage = $itemsPerPage;
     }
 
-    public function getPaginatedRoles(int $page): array
+    public function getPaginatedRoles(int $page, ?string $searchQuery = null): array
     {
-        $totalItems = $this->entityManager->getRepository(Role::class)->count([]);
-        $offset = ($page - 1) * $this->itemsPerPage;
+        $queryBuilder = $this->entityManager->getRepository(Role::class)->createQueryBuilder('r');
 
-        $roles = $this->entityManager->getRepository(Role::class)->findBy(
-            [],
-            null,
-            $this->itemsPerPage,
-            $offset
-        );
+        if ($searchQuery) {
+            $queryBuilder->where('r.title LIKE :search')
+                ->setParameter('search', '%' . $searchQuery . '%');
+        }
+        $totalItems = (clone $queryBuilder)->select('COUNT(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $roles = $queryBuilder->setFirstResult(($page - 1) * $this->itemsPerPage)
+            ->setMaxResults($this->itemsPerPage)
+            ->getQuery()
+            ->getResult();
 
         return [
             'roles' => $roles,
@@ -37,7 +42,6 @@ class RoleService
             'currentPage' => $page,
         ];
     }
-
     public function processForm(FormInterface $form, Request $request, Role $role): bool
     {
         $form->handleRequest($request);
@@ -51,8 +55,6 @@ class RoleService
 
         return false;
     }
-
-
 
     public function deleteRole(Role $role): void
     {

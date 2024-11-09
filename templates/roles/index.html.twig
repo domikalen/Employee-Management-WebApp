@@ -7,43 +7,47 @@
     <section>
         <div class="header-with-button">
             <h2>Roles</h2>
+            <div class="search-form-container">
+                {{ form_start(form, {'attr': {'class': 'search-form'}}) }}
+                {{ form_widget(form.query) }}
+                <button type="submit" class="button">Search</button>
+                {{ form_end(form) }}
+            </div>
             <div class="add-button-container">
                 <a href="{{ path('role_new') }}" class="button add_button">New</a>
             </div>
         </div>
         <div class="table-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for role in roles %}
+            <table>
+                <thead>
                 <tr>
-                    <td>{{ role.title }}</td>
-                    <td>{{ role.description }}</td>
-                    <td>
-                        <div class="employee-actions">
-                            <a class="button edit_button" href="{{ path('role_edit', { 'id': role.id }) }}"></a>
-                            <a class="button delete_button" href="{{ path('role_confirm_delete', { 'id': role.id }) }}"></a>
-                        </div>
-                    </td>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Actions</th>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">No roles found.</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for role in roles %}
+                    <tr>
+                        <td>{{ role.title }}</td>
+                        <td>{{ role.description }}</td>
+                        <td>
+                            <div class="employee-actions">
+                                <a class="button edit_button" href="{{ path('role_edit', { 'id': role.id }) }}"></a>
+                                <a class="button delete_button" href="{{ path('role_confirm_delete', { 'id': role.id }) }}"></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">No roles found.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
         <div class="pagination-container">
-            <div class="pagination">
-                {{ pagination.render(pagination, 'role_index') }}
-            </div>
+            {{ pagination.render(pagination, 'role_index', query) }}
         </div>
     </section>
 {% endblock %}
