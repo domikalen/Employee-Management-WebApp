@@ -36,12 +36,22 @@ class EmployeeController extends AbstractController
                 'query' => $searchQuery,
             ]);
         }
+
         $paginationData = $this->employeeService->getPaginatedEmployees($page, $searchQuery);
-        $pagination = $this->paginationService->getPagination(
-            $paginationData['totalItems'],
-            $page,
-            $searchQuery
-        );
+        if ($paginationData['totalItems'] == 0) {
+            $pagination = [
+                'currentPage' => 1,
+                'totalPages' => 1,
+                'hasPreviousPage' => false,
+                'hasNextPage' => false,
+            ];
+        } else {
+            $pagination = $this->paginationService->getPagination(
+                $paginationData['totalItems'],
+                $page,
+                $searchQuery
+            );
+        }
         return $this->render('employee/index.html.twig', [
             'form' => $form->createView(),
             'employees' => $paginationData['employees'],

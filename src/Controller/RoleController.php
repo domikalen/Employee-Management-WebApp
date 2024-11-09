@@ -39,11 +39,20 @@ class RoleController extends AbstractController
         }
 
         $paginationData = $this->roleService->getPaginatedRoles($page, $searchQuery);
-        $pagination = $this->paginationService->getPagination(
-            $paginationData['totalItems'],
-            $page,
-            $searchQuery
-        );
+        if ($paginationData['totalItems'] == 0) {
+            $pagination = [
+                'currentPage' => 1,
+                'totalPages' => 1,
+                'hasPreviousPage' => false,
+                'hasNextPage' => false,
+            ];
+        } else {
+            $pagination = $this->paginationService->getPagination(
+                $paginationData['totalItems'],
+                $page,
+                $searchQuery
+            );
+        }
 
         return $this->render('roles/index.html.twig', [
             'form' => $form->createView(),
