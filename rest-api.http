@@ -1,66 +1,106 @@
+### Employee API ###
 
-BASE_URL="http://127.0.0.1:8000/api"
+# Fetch the list of employees (GET)
+GET http://127.0.0.1:8000/api/employee
 
-# 1. Получение списка ролей
-curl -X GET "$BASE_URL/roles" -H "Accept: application/json"
+# Get details of a specific employee by ID (GET)
+###
+GET http://127.0.0.1:8000/api/employee/1
 
-# 2. Получение информации о конкретной роли
-curl -X GET "$BASE_URL/roles/1" -H "Accept: application/json"
+# Create a new employee (POST)
 
-# 3. Создание новой роли
-curl -X POST "$BASE_URL/roles" \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     -d '{
-           "title": "Manager",
-           "description": "Manages teams and projects",
-           "isVisible": true
-         }'
+###
+POST http://127.0.0.1:8000/api/employee
+Content-Type: application/json
+{
+  "name": "Luke Skywalker",
+  "email": "luke.skywalker@rebels.alliance",
+  "phone": "+420 123 456 789454",
+  "description": "Jedi Knight and leader of the Rebellion.",
+  "roles": [1, 2],
+  "image": "luke_skywalker.jpg"
+}
+###
+# Update an employee by ID (PUT)
+PUT http://127.0.0.1:8000/api/employee/1
+Content-Type: application/json
+{
+  "name": "Luke Skywalker",
+  "email": "luke.updated@rebels.alliance",
+  "phone": "+420 987 654 324545231",
+  "description": "Jedi Master leading the next generation.",
+  "roles": [2]
+}
+###
+# Assign a role to an employee (POST)
+POST http://127.0.0.1:8000/api/employee/1/add-role/2
+###
+# Remove a role from an employee (POST)
+POST http://127.0.0.1:8000/api/employee/1/remove-role/2
 
-# 4. Обновление данных роли
-curl -X PUT "$BASE_URL/roles/1" \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     -d '{
-           "title": "Senior Manager",
-           "description": "Oversees multiple teams and projects",
-           "isVisible": true
-         }'
+###
+# Delete an employee by ID (DELETE)
+DELETE http://127.0.0.1:8000/api/employee/1
 
-# 5. Удаление роли
-curl -X DELETE "$BASE_URL/roles/1" -H "Accept: application/json"
+### Account API ###
 
-# 1. Получение списка сотрудников с фильтрацией
-curl -X GET "$BASE_URL/employee?page=1&search=John" -H "Accept: application/json"
+# Fetch the list of all accounts (GET)
+GET http://127.0.0.1:8000/api/accounts
+###
+# Get accounts associated with a specific employee (GET)
+GET http://127.0.0.1:8000/api/accounts/employee/2
+###
+# Create a new account (POST)
+POST http://127.0.0.1:8000/api/accounts
+Content-Type: application/json
+{
+  "name": "X-Wing Fighter Maintenance",
+  "type": "Operational",
+  "expiration": "2025-12-31T23:59:59",
+  "employeeId": 2
+}
+###
+# Get account details by ID (GET)
+GET http://127.0.0.1:8000/api/accounts/2
+###
+# Update an account by ID (PUT)
+PUT http://127.0.0.1:8000/api/accounts/2
+Content-Type: application/json
+{
+  "name": "Starfighter Operations",
+  "type": "Tactical",
+  "expiration": "2026-12-31T23:59:59"
+}
+###
+# Delete an account by ID (DELETE)
+DELETE http://127.0.0.1:8000/api/accounts/2
 
-# 2. Получение информации о конкретном сотруднике
-curl -X GET "$BASE_URL/employee/1" -H "Accept: application/json"
 
-# 3. Создание нового сотрудника
-curl -X POST "$BASE_URL/employee" \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     -d '{
-           "name": "John Doe",
-           "email": "john.doe@example.com",
-           "phone": "1234567890",
-           "description": "New employee",
-           "roles": ["Manager"],
-           "image": "path/to/image.jpg"
-         }'
+### Role API ###
 
-# 4. Обновление данных сотрудника
-curl -X PUT "$BASE_URL/employee/1" \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     -d '{
-           "name": "John Updated",
-           "email": "john.updated@example.com",
-           "phone": "9876543210",
-           "description": "Updated description",
-           "roles": ["Developer"],
-           "image": "path/to/new_image.jpg"
-         }'
-
-# 5. Удаление сотрудника
-curl -X DELETE "$BASE_URL/employee/1" -H "Accept: application/json"
+# Fetch the list of roles (GET)
+GET http://127.0.0.1:8000/api/roles
+###
+# Get role details by ID (GET)
+GET http://127.0.0.1:8000/api/roles/3
+###
+# Create a new role (POST)
+POST http://127.0.0.1:8000/api/roles
+Content-Type: application/json
+{
+  "title": "Jedi Knight",
+  "description": "Protectors of peace and justice in the galaxy.",
+  "isVisible": true
+}
+###
+# Update a role by ID (PUT)
+PUT http://127.0.0.1:8000/api/roles/3
+Content-Type: application/json
+{
+  "title": "Jedi Master",
+  "description": "The highest rank of the Jedi Order.",
+  "isVisible": true
+}
+###
+# Delete a role by ID (DELETE)
+DELETE http://127.0.0.1:8000/api/roles/3
