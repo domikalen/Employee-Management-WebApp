@@ -27,15 +27,42 @@ class RoleController extends AbstractController
     }
 
     #[Route(path: '', name: 'list', methods: ['GET'])]
-    public function list(): Response
+    public function list(Request $request): Response
     {
-        return $this->json(new CollectionResource(
-            _self: $this->generateUrl('api_role_list'),
-            data: array_map(
+        $page = max((int) $request->query->get('page', 1), 1);
+        $limit = max((int) $request->query->get('limit', 10), 1);
+        $searchQuery = $request->query->get('search', null);
+
+        $queryBuilder = $this->roleRepository->createQueryBuilder('r');
+
+        if ($searchQuery) {
+            $queryBuilder->where('LOWER(r.title) LIKE :search')
+                ->setParameter('search', '%' . strtolower($searchQuery) . '%');
+        }
+
+        $totalItems = (clone $queryBuilder)->select('COUNT(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $roles = $queryBuilder->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        return $this->json([
+            '_self' => $this->generateUrl('api_role_list', [
+                'page' => $page,
+                'limit' => $limit,
+                'search' => $searchQuery
+            ]),
+            'total' => $totalItems,
+            'page' => $page,
+            'limit' => $limit,
+            'data' => array_map(
                 fn (Role $role) => $this->roleFactory->toResource($role),
-                $this->roleRepository->findAll()
+                $roles
             ),
-        ));
+        ]);
     }
 
     #[Route(path: '/{id}', name: 'show', methods: ['GET'])]
