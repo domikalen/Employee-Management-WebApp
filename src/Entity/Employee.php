@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
@@ -98,6 +97,15 @@ class Employee
         return $this;
     }
 
+    public function clearRoles(): self
+    {
+        foreach ($this->roles as $role) {
+            $this->removeRole($role);
+        }
+
+        return $this;
+    }
+
     public function getImage(): ?string
     {
         return $this->image;
@@ -105,7 +113,7 @@ class Employee
 
     public function setImage(?string $image): self
     {
-        $this->image = $image;
+        $this->image = $image ?? "/images/new_user.jpg";
         return $this;
     }
 

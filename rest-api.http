@@ -1,0 +1,66 @@
+
+BASE_URL="http://127.0.0.1:8000/api"
+
+# 1. Получение списка ролей
+curl -X GET "$BASE_URL/roles" -H "Accept: application/json"
+
+# 2. Получение информации о конкретной роли
+curl -X GET "$BASE_URL/roles/1" -H "Accept: application/json"
+
+# 3. Создание новой роли
+curl -X POST "$BASE_URL/roles" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+           "title": "Manager",
+           "description": "Manages teams and projects",
+           "isVisible": true
+         }'
+
+# 4. Обновление данных роли
+curl -X PUT "$BASE_URL/roles/1" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+           "title": "Senior Manager",
+           "description": "Oversees multiple teams and projects",
+           "isVisible": true
+         }'
+
+# 5. Удаление роли
+curl -X DELETE "$BASE_URL/roles/1" -H "Accept: application/json"
+
+# 1. Получение списка сотрудников с фильтрацией
+curl -X GET "$BASE_URL/employee?page=1&search=John" -H "Accept: application/json"
+
+# 2. Получение информации о конкретном сотруднике
+curl -X GET "$BASE_URL/employee/1" -H "Accept: application/json"
+
+# 3. Создание нового сотрудника
+curl -X POST "$BASE_URL/employee" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+           "name": "John Doe",
+           "email": "john.doe@example.com",
+           "phone": "1234567890",
+           "description": "New employee",
+           "roles": ["Manager"],
+           "image": "path/to/image.jpg"
+         }'
+
+# 4. Обновление данных сотрудника
+curl -X PUT "$BASE_URL/employee/1" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+           "name": "John Updated",
+           "email": "john.updated@example.com",
+           "phone": "9876543210",
+           "description": "Updated description",
+           "roles": ["Developer"],
+           "image": "path/to/new_image.jpg"
+         }'
+
+# 5. Удаление сотрудника
+curl -X DELETE "$BASE_URL/employee/1" -H "Accept: application/json"

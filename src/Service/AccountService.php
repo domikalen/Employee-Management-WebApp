@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Account;
 use App\Entity\Employee;
+use App\Entity\Role;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,13 @@ class AccountService
 {
     private EntityManagerInterface $entityManager;
     private CsrfTokenManagerInterface $csrfTokenManager;
+    private int $itemsPerPage;
 
-    public function __construct(EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager,int $itemsPerPage = 5)
     {
         $this->entityManager = $entityManager;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->itemsPerPage = $itemsPerPage;
     }
 
     public function findEmployee(int $employeeId): ?Employee
@@ -53,5 +56,30 @@ class AccountService
         }
 
         return false;
+    }
+
+    public function getPaginatedAccounts(int $page, ?string $searchQuery = null): array
+    {
+        $queryBuilder = $this->entityManager->getRepository(Account::class)->createQueryBuilder('a');
+
+        if ($searchQuery) {
+            $queryBuilder->where('a.name LIKE :search')
+                ->setParameter('search', '%' . $searchQuery . '%');
+        }
+        $totalItems = (clone $queryBuilder)->select('COUNT(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $accounts = $queryBuilder->setFirstResult(($page - 1) * $this->itemsPerPage)
+            ->setMaxResults($this->itemsPerPage)
+            ->getQuery()
+            ->getResult();
+
+        return [
+            'accounts' => $accounts,
+            'totalItems' => $totalItems,
+            'itemsPerPage' => $this->itemsPerPage,
+            'currentPage' => $page,
+        ];
     }
 }
