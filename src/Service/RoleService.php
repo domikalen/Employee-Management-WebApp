@@ -23,9 +23,10 @@ class RoleService
         $queryBuilder = $this->entityManager->getRepository(Role::class)->createQueryBuilder('r');
 
         if ($searchQuery) {
-            $queryBuilder->where('r.title LIKE :search')
-                ->setParameter('search', '%' . $searchQuery . '%');
+            $queryBuilder->where('LOWER(r.title) LIKE :search')
+                ->setParameter('search', '%' . strtolower($searchQuery) . '%');
         }
+
         $totalItems = (clone $queryBuilder)->select('COUNT(r.id)')
             ->getQuery()
             ->getSingleScalarResult();

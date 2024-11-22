@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ApiResource]
 #[ORM\Entity]
 class Role
 {
@@ -28,15 +30,7 @@ class Role
     #[ORM\ManyToMany(targetEntity: Employee::class, mappedBy: 'roles')]
     private Collection $employees;
 
-    public function __construct(
-        ?string $title = null,
-        ?string $description = null,
-        bool $isVisible = true
-
-    ) {
-        $this->title = $title;
-        $this->description = $description;
-        $this->isVisible = $isVisible;
+    public function __construct() {
         $this->employees = new ArrayCollection();
     }
     public function getId(): ?int
@@ -95,7 +89,6 @@ class Role
         if ($this->employees->contains($employee)) {
             $this->employees->removeElement($employee);
         }
-
         return $this;
     }
 

@@ -37,7 +37,7 @@ class EmployeeController extends AbstractController
         $paginationData = $this->employeeService->getPaginatedEmployees($page, $searchQuery);
 
         return $this->json([
-            '_self' => $this->generateUrl('api_employee_list'),
+            '_self' => $this->generateUrl('api_employee_list', ['page' => $page, 'search' => $searchQuery]),
             'total' => $paginationData['totalItems'],
             'page' => $paginationData['currentPage'],
             'limit' => $paginationData['itemsPerPage'],
@@ -47,6 +47,7 @@ class EmployeeController extends AbstractController
             ),
         ]);
     }
+
 
     #[Route(path: '/{id}', name: 'show', methods: ['GET'])]
     public function show(Employee $employee): Response

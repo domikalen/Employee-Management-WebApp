@@ -1,14 +1,15 @@
 <?php
 namespace App\Entity;
 
-use App\Repository\EmployeeRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: EmployeeRepository::class)]
+#[ApiResource]
+#[ORM\Entity]
 #[UniqueEntity(fields: ['phone'], message: 'This phone number is already in use. Please choose a different one.')]
 #[UniqueEntity(fields: ['email'], message: 'This email is already in use. Please choose a different one.')]
 class Employee
@@ -41,19 +42,9 @@ class Employee
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    public function __construct(
-        ?string $name = null,
-        ?string $image = null,
-        ?string $phone = null,
-        ?string $email = null,
-        ?string $description = null
-    ) {
-        $this->name = $name;
+
+    public function __construct() {
         $this->roles = new ArrayCollection();
-        $this->image = $image;
-        $this->phone = $phone;
-        $this->email = $email;
-        $this->description = $description;
     }
 
     public function getId(): ?int
@@ -102,7 +93,6 @@ class Employee
         foreach ($this->roles as $role) {
             $this->removeRole($role);
         }
-
         return $this;
     }
 
@@ -149,4 +139,5 @@ class Employee
         $this->description = $description;
         return $this;
     }
+
 }

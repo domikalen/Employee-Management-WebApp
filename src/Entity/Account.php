@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\AccountRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Employee;
+use ApiPlatform\Metadata\ApiResource;
 
-#[ORM\Entity(repositoryClass: AccountRepository::class)]
+
+#[ApiResource]
+#[ORM\Entity]
 class Account
 {
     #[ORM\Id]
@@ -23,7 +24,7 @@ class Account
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTime $expiration = null;
 
-    #[ORM\ManyToOne(targetEntity: Employee::class)]
+    #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'accounts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Employee $employee = null;
 

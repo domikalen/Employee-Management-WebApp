@@ -22,17 +22,21 @@ class EmployeeService
     public function getPaginatedEmployees(int $page, ?string $searchQuery = null): array
     {
         $queryBuilder = $this->entityManager->getRepository(Employee::class)->createQueryBuilder('e');
+
         if ($searchQuery) {
-            $queryBuilder->where('e.name LIKE :search')
-                ->setParameter('search', '%' . $searchQuery . '%');
+            $queryBuilder->where('LOWER(e.name) LIKE :search')
+                ->setParameter('search', '%' . strtolower($searchQuery) . '%');
         }
+
         $totalItems = (clone $queryBuilder)->select('COUNT(e.id)')
             ->getQuery()
             ->getSingleScalarResult();
+
         $employees = $queryBuilder->setFirstResult(($page - 1) * $this->itemsPerPage)
             ->setMaxResults($this->itemsPerPage)
             ->getQuery()
             ->getResult();
+
         return [
             'employees' => $employees,
             'totalItems' => $totalItems,
@@ -40,6 +44,7 @@ class EmployeeService
             'currentPage' => $page,
         ];
     }
+
     public function processForm(FormInterface $form, Request $request, Employee $employee, string $directory): bool
     {
         $form->handleRequest($request);

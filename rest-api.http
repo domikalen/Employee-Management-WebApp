@@ -12,6 +12,7 @@ GET http://127.0.0.1:8000/api/employee/1
 ###
 POST http://127.0.0.1:8000/api/employee
 Content-Type: application/json
+
 {
   "name": "Luke Skywalker",
   "email": "luke.skywalker@rebels.alliance",
@@ -24,6 +25,7 @@ Content-Type: application/json
 # Update an employee by ID (PUT)
 PUT http://127.0.0.1:8000/api/employee/1
 Content-Type: application/json
+
 {
   "name": "Luke Skywalker",
   "email": "luke.updated@rebels.alliance",
@@ -33,14 +35,14 @@ Content-Type: application/json
 }
 ###
 # Assign a role to an employee (POST)
-POST http://127.0.0.1:8000/api/employee/1/add-role/2
+POST http://127.0.0.1:8000/api/employee/1/add-role/5
 ###
 # Remove a role from an employee (POST)
-POST http://127.0.0.1:8000/api/employee/1/remove-role/2
+POST http://127.0.0.1:8000/api/employee/1/remove-role/5
 
 ###
 # Delete an employee by ID (DELETE)
-DELETE http://127.0.0.1:8000/api/employee/1
+DELETE http://127.0.0.1:8000/api/employee/2
 
 ### Account API ###
 
@@ -48,16 +50,17 @@ DELETE http://127.0.0.1:8000/api/employee/1
 GET http://127.0.0.1:8000/api/accounts
 ###
 # Get accounts associated with a specific employee (GET)
-GET http://127.0.0.1:8000/api/accounts/employee/2
+GET http://127.0.0.1:8000/api/accounts/employee/1
 ###
 # Create a new account (POST)
 POST http://127.0.0.1:8000/api/accounts
 Content-Type: application/json
+
 {
   "name": "X-Wing Fighter Maintenance",
   "type": "Operational",
   "expiration": "2025-12-31T23:59:59",
-  "employeeId": 2
+  "employeeId": 1
 }
 ###
 # Get account details by ID (GET)
@@ -66,6 +69,7 @@ GET http://127.0.0.1:8000/api/accounts/2
 # Update an account by ID (PUT)
 PUT http://127.0.0.1:8000/api/accounts/2
 Content-Type: application/json
+
 {
   "name": "Starfighter Operations",
   "type": "Tactical",
@@ -87,6 +91,7 @@ GET http://127.0.0.1:8000/api/roles/3
 # Create a new role (POST)
 POST http://127.0.0.1:8000/api/roles
 Content-Type: application/json
+
 {
   "title": "Jedi Knight",
   "description": "Protectors of peace and justice in the galaxy.",
@@ -96,6 +101,7 @@ Content-Type: application/json
 # Update a role by ID (PUT)
 PUT http://127.0.0.1:8000/api/roles/3
 Content-Type: application/json
+
 {
   "title": "Jedi Master",
   "description": "The highest rank of the Jedi Order.",
@@ -104,3 +110,13 @@ Content-Type: application/json
 ###
 # Delete a role by ID (DELETE)
 DELETE http://127.0.0.1:8000/api/roles/3
+###
+
+# Search employees
+GET http://127.0.0.1:8000/api/employee?search=Luke
+
+###
+
+#Search roles
+
+GET http://127.0.0.1:8000/api/roles?search=manager
