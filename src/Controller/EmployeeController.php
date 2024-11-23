@@ -89,4 +89,11 @@ class EmployeeController extends AbstractController
         return $this->redirectToRoute('employees');
     }
 
+    #[Route('/employee/{id}/confirm-delete', name: 'employee_confirm_delete', requirements: ['id' => '\d+'])]
+    public function confirmDelete(Employee $employee): Response
+    {
+        return $this->render('employee/confirm_delete.html.twig', [
+            'employee' => $employee,
+        ]);
+    }
 }

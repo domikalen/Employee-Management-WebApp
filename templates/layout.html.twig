@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="{{ asset('css/employee_accounts.css') }}">
     <link rel="stylesheet" href="{{ asset('css/error.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <script src="{{ asset('js/confirm.js') }}"></script>
+    <script src="{{ asset('js/modal.js') }}"></script>
+    <script src="{{ asset('js/dropdown.js') }}"></script>
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 </head>
 <body>
@@ -20,7 +24,15 @@
         <a class="button" href="{{ path('employee_index') }}">Main page</a>
         <a class="button" href="{{ path('employees') }}">Employees</a>
         <a class="button" href="{{ path('role_index') }}">Roles</a>
+        <div class="dropdown">
+            <button class="dropdown-trigger">More Options</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-button" href="{{ path('employee_create') }}">+ Employee</a></li>
+                <li><a class="dropdown-button" href="{{ path('role_new') }}">+ Role</a></li>
+            </ul>
+        </div>
     </nav>
+
 
 </header>
 
@@ -31,5 +43,6 @@
 <footer>
     <p>&copy; 2024 Evidence zaměstnanců</p>
 </footer>
+
 </body>
 </html>
