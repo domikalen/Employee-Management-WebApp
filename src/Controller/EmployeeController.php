@@ -92,7 +92,7 @@ class EmployeeController extends AbstractController
     #[Route('/employee/{id}/confirm-delete', name: 'employee_confirm_delete', requirements: ['id' => '\d+'])]
     public function confirmDelete(Employee $employee): Response
     {
-        return $this->render('employee/confirm_delete.html.twig', [
+        return $this->render('employee/delete.html.twig', [
             'employee' => $employee,
         ]);
     }
