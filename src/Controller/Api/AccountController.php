@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/api/accounts', name: 'api_accounts_')]
+#[Route(path: '/api/{employeeId}/accounts', name: 'api_accounts_')]
 class AccountController extends AbstractController
 {
     public function __construct(
@@ -24,27 +24,27 @@ class AccountController extends AbstractController
         private EntityManagerInterface $entityManager,
     ) {}
 
-    #[Route(path: '', name: 'list', methods: ['GET'])]
-    public function list(Request $request): Response
-    {
-        $page = max((int) $request->query->get('page', 1), 1);
-        $searchQuery = $request->query->get('search', null);
+//    #[Route(path: '', name: 'list', methods: ['GET'])]
+//    public function list(Request $request): Response
+//    {
+//        $page = max((int) $request->query->get('page', 1), 1);
+//        $searchQuery = $request->query->get('search', null);
+//
+//        $paginationData = $this->accountService->getPaginatedAccounts($page, $searchQuery);
+//
+//        return $this->json([
+//            '_self' => $this->generateUrl('api_accounts_list'),
+//            'total' => $paginationData['totalItems'],
+//            'page' => $paginationData['currentPage'],
+//            'limit' => $paginationData['itemsPerPage'],
+//            'data' => array_map(
+//                fn(Account $account) => $this->accountFactory->toResource($account),
+//                $paginationData['accounts']
+//            ),
+//        ]);
+//    }
 
-        $paginationData = $this->accountService->getPaginatedAccounts($page, $searchQuery);
-
-        return $this->json([
-            '_self' => $this->generateUrl('api_accounts_list'),
-            'total' => $paginationData['totalItems'],
-            'page' => $paginationData['currentPage'],
-            'limit' => $paginationData['itemsPerPage'],
-            'data' => array_map(
-                fn(Account $account) => $this->accountFactory->toResource($account),
-                $paginationData['accounts']
-            ),
-        ]);
-    }
-
-    #[Route(path: '/employee/{employeeId}', name: 'list_by_employee', methods: ['GET'])]
+    #[Route(path: '', name: 'list_by_employee', methods: ['GET'])]
     public function listByEmployee(int $employeeId): Response
     {
         $employee = $this->accountService->findEmployee($employeeId);
