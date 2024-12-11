@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Delete Role{% endblock %}
+
+{% block content %}
+    <section class="delete-confirmation">
+        <div class="delete-confirmation-content">
+            <h2>Confirm Deletion of Role</h2>
+            <p>Are you sure you want to delete the role SOS"<strong>{{ role.title }}</strong>"?</p>
+            <p class="warning">This action will remove this role from all associated employees and cannot be undone.</p>
+
+            <div class="delete-actions">
+                {{ form_start(form, { 'action': path('role_delete', { 'id': role.id }), 'method': 'POST' }) }}
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ role.id) }}">
+                <button type="submit" class="button delete_button">Delete</button>
+                {{ form_end(form, { 'render_rest': false }) }}
+                <a href="{{ path('role_index') }}" class="button cancel_button">Cancel</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

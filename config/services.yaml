@@ -1,0 +1,24 @@
+parameters:
+    items_per_page: 5
+    images_directory: '%kernel.project_dir%/public/images'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\PaginationService:
+        arguments:
+            $itemsPerPage: '%items_per_page%'
+
+    App\Controller\Api\EmployeeController:
+        arguments:
+            $imageDirectory: '%images_directory%'

@@ -1,0 +1,30 @@
+
+.error-page {
+    text-align: center;
+    color: #D32F2F;
+    padding: var(--padding-base);
+}
+
+.error-page h1 {
+    font-size: var(--font-size-xlarge);
+    margin-bottom: var(--padding-small);
+}
+
+.error-page p {
+    font-size: var(--font-size-base);
+    margin: var(--padding-small) 0;
+}
+
+.error-page a {
+    display: inline-block;
+    background-color: var(--button-color-background);
+    color: white;
+    padding: var(--padding-small) var(--padding-base);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.error-page a:hover {
+    background-color: var(--button-hover-bg-color);
+}

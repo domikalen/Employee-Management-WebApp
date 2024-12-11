@@ -1,0 +1,437 @@
+:root {
+    --main-bg-color: #f5f5f5;
+    --main-text-color: #333;
+    --header-bg-color: #1a4c98;
+
+    --button-border-color: #4d7ddc;
+    --button-color-background : #ffffff;
+    --button-text-color: #322e2e;
+
+    --add-button-color : #ffff;
+    --button-hover-color: #3b72c1;
+
+
+    --button-hover-bg-color: #616161;
+    --highlight-color: #007BFF;
+    --table-header-bg: #f5f5f5;
+    --table-border-color: #ccc;
+    --font-size-base: 1rem;
+    --font-size-large: 1.5rem;
+    --font-size-xlarge: 2rem;
+    --padding-base: 1rem;
+    --padding-small: 0.5rem;
+    --border-radius: 0.5rem;
+    --shadow-light: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+    --image-size: 6rem;
+    --button-size: 7rem;
+    --button-padding: 0.5rem 1rem;
+    --border: 0.1rem solid #ccc;
+
+    --edit-button-icon-color: #ffffff;
+    --edit-button-text-color: #ffffff;
+
+    --delete-button-color: #dc3545;
+    --delete-button-hover-color: #c82333;
+    --delete-button-color-background: #ffffff;
+    --delete-button-color_hover: #b34545;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    line-height: 1.6;
+    font-size: var(--font-size-base);
+    padding: var(--padding-base);
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: white;
+    padding: var(--padding-base);
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--padding-small);
+    margin-bottom: var(--padding-base);
+}
+
+
+main {
+    padding: var(--padding-base);
+    max-width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+
+footer {
+    text-align: center;
+    padding: var(--padding-base);
+    background-color: var(--header-bg-color);
+    color: white;
+    margin-top: var(--padding-base);
+}
+
+h1 {
+    font-size: var(--font-size-xlarge);
+    margin-bottom: var(--padding-base);
+    text-align: center;
+}
+
+h2 {
+    font-size: var(--font-size-large);
+    margin-bottom: var(--padding-small);
+}
+
+a {
+    color: var(--highlight-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Base button styling for all button types */
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color-background);
+    color: var(--button-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    border-radius: var(--border-radius);
+    padding: var(--button-padding);
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: var(--button-hover-color);
+}
+
+
+.edit_button::before {
+    content: "✏️";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.add_button::before {
+    content: "+";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.delete_button::before {
+    content: "🗑️";
+    color: var(--button-text-color);
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+.delete_button {
+    color: var(--delete-button-color);
+}
+
+.delete_button:hover {
+    background-color: var(--delete-button-hover-color);
+}
+
+
+.add-button-container,
+.edit_button_container {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 1rem;
+}
+
+.button.cancel_button {
+    background-color: var(--button-color-background);
+    color: var(--main-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    padding: var(--button-padding);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button.cancel_button:hover {
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-text-color);
+}
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--padding-small);
+}
+
+table {
+    min-width: 600px;
+    white-space: nowrap;
+    width: 100%;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.search-form-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.search-form-container .button {
+    margin-left: 1em;
+}
+.search-form-container .search-form {
+    display: flex;
+    width: 100%;
+}
+
+.search-form-container .search-form input[type="search"] {
+    flex: 1;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    margin: 0;
+}
+
+
+.search-form-container .search-form input[type="search"]:focus {
+    border-color: var(--highlight-color);
+    outline: none;
+}
+
+
+.button, .dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color-background);
+    color: var(--button-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    border-radius: var(--border-radius);
+    padding: var(--button-padding);
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    min-width: 7rem;
+    height: 2.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.button:hover,
+.button:focus,
+.dropdown-trigger:hover,
+.dropdown-trigger:focus {
+    background-color: var(--button-hover-color);
+    color: white;
+    outline: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background-color: var(--button-color-background);
+    border: 0.1rem solid var(--button-border-color);
+    box-shadow: var(--shadow-light);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    border-radius: var(--border-radius);
+    min-width: 7rem;
+}
+
+.dropdown-menu.visible {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color-background);
+    color: var(--button-text-color);
+    border: 0.1rem solid var(--button-border-color);
+    border-radius: var(--border-radius);
+    padding: var(--button-padding);
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    min-width: 7rem;
+    height: 2.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--button-hover-color);
+    color: white;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--button-color-background);
+    padding: var(--padding-base);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal h2 {
+    margin-bottom: var(--padding-small);
+}
+
+.modal p {
+    margin-bottom: var(--padding-base);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--padding-small);
+}
+
+.modal .modal-close {
+    background-color: var(--button-color-background);
+    color: var(--button-text-color);
+    border: var(--border);
+    padding: var(--button-padding);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal .modal-close:hover {
+    background-color: var(--button-hover-color);
+    color: var(--button-color-background);
+}
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.autocomplete input {
+    width: 100%;
+    padding: var(--padding-small);
+    border: var(--border);
+    border-radius: var(--border-radius);
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--button-color-background);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    max-height: 12.5rem;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.autocomplete-list.open {
+    display: block;
+}
+
+.autocomplete-list-item {
+    padding: var(--padding-small);
+    cursor: pointer;
+}
+
+.autocomplete-list-item:hover {
+    background-color: var(--button-hover-bg-color);
+    color: var(--button-text-color);
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: var(--padding-small);
+    }
+
+    h1.button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.95rem;
+        width: 100%;
+        margin-top: 0.4rem;
+        border-radius: 0.3rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+    table {
+        font-size: 0.9rem;
+    }
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+    }
+}

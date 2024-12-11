@@ -1,0 +1,69 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ isNew ? 'Create New Employee' : 'Edit Employee - ' ~ employee.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ isNew ? 'Create New Employee' : 'Edit Employee - ' ~ employee.name }}</h1>
+
+    <div id="edit-confirm-modal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Edit</h2>
+            <p>Are you sure you want to make changes to <strong>{{ employee.name }}</strong>?</p>
+            <div class="modal-actions">
+                <button class="button modal-confirm">Yes</button>
+                <button class="button modal-close">No</button>
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.phone) }}
+        {{ form_widget(form.phone) }}
+        {{ form_errors(form.phone) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.roles) }}
+        <div class="roles-container">
+            {% if form.roles is defined %}
+                {{ form_widget(form.roles) }}
+            {% else %}
+                <p>No roles available.</p>
+            {% endif %}
+        </div>
+        {{ form_errors(form.roles) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, { 'attr': { 'class': 'large-textarea' } }) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image) }}
+        {{ form_errors(form.image) }}
+    </div>
+
+    <button type="submit" class="form-button trigger-edit-modal" data-employee-name="{{ employee.name }}">
+        {{ isNew ? 'Create' : 'Update' }}
+    </button>
+    {{ form_end(form) }}
+{% endblock %}
+

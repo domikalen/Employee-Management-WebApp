@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Delete Employee{% endblock %}
+
+{% block content %}
+    <h1>Delete Employee - {{ employee.name }}</h1>
+
+    <div id="delete-confirm-modal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete <strong>{{ employee.name }}</strong>?</p>
+            <div class="modal-actions">
+                {{ form_start(form) }}
+                <button type="submit" class="button delete_button modal-confirm">Yes</button>
+                {{ form_end(form) }}
+                <button class="button modal-close">No</button>
+            </div>
+        </div>
+    </div>
+
+    <button data-modal="delete-confirm-modal" class="button trigger-delete-modal">Delete</button>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% import 'macros/pagination.html.twig' as pagination %}
+{% block title %}Employee List{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="header-with-button">
+            <h2>Employee List</h2>
+            <div class="search-form-container">
+                {{ form_start(form, {'attr': {'class': 'search-form'}}) }}
+                {{ form_widget(form.query) }}
+                <button type="submit" class="button">Search</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="add-button-container">
+                <a href="{{ path('employee_create') }}" class="button add_button">New</a>
+            </div>
+        </div>
+
+        <ul>
+            {% for employee in employees %}
+                <li>
+                    <div class="employee-info">
+                        <img src="{{ employee.image }}" alt="{{ employee.name }}">
+                        <div class="employee-details">
+                            <strong>{{ employee.name }}:</strong>
+                            {% for role in employee.roles %}
+                                {% if role.isVisible %}
+                                    {{ role.title }}{% if not loop.last %}, {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="employee-actions">
+                        <a class="button" href="{{ path('employee_detail', { id: employee.id }) }}">
+                            <span class="icon">📄</span> Detail
+                        </a>
+                        <a class="button" href="{{ path('employee_account', { id: employee.id }) }}">
+                            <span class="icon">🔑</span> Accounts
+                        </a>
+                        <a class="button edit_button" href="{{ path('employee_detail_edit', { 'id': employee.id }) }}"></a>
+                    </div>
+                </li>
+            {% else %}
+                <li>No employees available.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination-container">
+            {{ pagination.render(pagination, 'employees', query) }}
+        </div>
+
+
+    </section>
+{% endblock %}

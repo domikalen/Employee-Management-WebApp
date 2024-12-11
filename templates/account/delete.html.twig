@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Delete Account{% endblock %}
+
+{% block content %}
+    <section class="delete-confirmation">
+        <div class="delete-confirmation-content">
+            <h2>Confirm Account Deletion</h2>
+            <p>Are you sure you want to delete the account "<strong>{{ account.name }}</strong>"?</p>
+
+            {{ form_start(form) }}
+            <button type="submit" class="button danger">Delete Account</button>
+            {{ form_end(form) }}
+
+            <a href="{{ path('employee_account', { 'id': account.employee.id }) }}" class="button cancel">Cancel</a>
+        </div>
+    </section>
+{% endblock %}

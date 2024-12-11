@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Employee Accounts - {{ employee.name }}{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Accounts for {{ employee.name }}</h2>
+        <p>Roles:
+            {% for role in employee.roles %}
+                {% if role.isVisible %}
+                    {{ role.title }}{% if not loop.last %}, {% endif %}
+                {% endif %}
+            {% endfor %}
+        </p>
+        <div class="add-button-container">
+            <a href="{{ path('account_new', { 'employee_id': employee.id }) }}" class="button add_button">New</a>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Type</th>
+                    <th>Expiration</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.name }}</td>
+                        <td>{{ account.type }}</td>
+                        <td>{{ account.expiration ? account.expiration|date('Y-m-d H:i:s') : 'Permanent' }}</td>
+                        <td>
+                            <a href="{{ path('account_edit', { 'employee_id': employee.id, 'id': account.id }) }}" class="button edit_button">️</a>
+                        </td>
+                        <td>
+                            <form action="{{ path('account_delete', { 'id': account.id }) }}" method="post" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
+                                <button type="submit" class="button delete_button" onclick="return confirm('Are you sure you want to delete this account?');"></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No accounts available.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

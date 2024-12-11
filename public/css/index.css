@@ -1,0 +1,35 @@
+.index-page main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.index-page section {
+    width: 100%;
+    padding: var(--padding-base);
+}
+
+.index-page h2 {
+    color: var(--main-text-color);
+    border-bottom: 0.125rem solid var(--table-border-color);
+    padding-bottom: var(--padding-small);
+}
+
+.index-page ul {
+    width: 100%;
+}
+
+.index-page li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding-base);
+}
+
+.index-page img {
+    border-radius: 50%;
+    margin-right: var(--padding-small);
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+}

@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Default Title{% endblock %}</title>
-    <link rel="stylesheet" href="/css/general.css">
-    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset('css/general.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/employees.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/employee_detail.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/employee_accounts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/error.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <script src="{{ asset('js/modal.js') }}"></script>
+    <script src="{{ asset('js/dropdown.js') }}"></script>
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
+
 </head>
 <body>
 <header>
-    <h1>Evidence zaměstnanců</h1>
+    <h1>Employee database</h1>
     <nav>
-        <button onclick="location.href='?page=index'">Titulní strana</button>
-        <a href="?page=employees">Účty</a></li>
-        <button onclick="location.href='?page=employee_detail'">Detail zaměstnance</button>
-        <a href="?page=employee_accounts">Účty zaměstnance</a></li>
-        <button onclick="location.href='?page=error'">Chyba</button>
+        <a class="button" href="{{ path('employee_index') }}">Main page</a>
+        <a class="button" href="{{ path('employees') }}">Employees</a>
+        <a class="button" href="{{ path('role_index') }}">Roles</a>
+        <div class="dropdown">
+            <button class="dropdown-trigger">More Options</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-button" href="{{ path('employee_create') }}">+ Employee</a></li>
+                <li><a class="dropdown-button" href="{{ path('role_new') }}">+ Role</a></li>
+            </ul>
+        </div>
     </nav>
+
+
 </header>
 
 <main>
@@ -26,5 +42,6 @@
 <footer>
     <p>&copy; 2024 Evidence zaměstnanců</p>
 </footer>
+
 </body>
 </html>

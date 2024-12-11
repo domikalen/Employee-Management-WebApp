@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+    <div class="confirmation-page">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete <strong>{{ employee.name }}</strong>?</p>
+        <form action="{{ path('employee_delete', { id: employee.id }) }}" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ employee.id) }}">
+            <button type="submit" class="button delete_button">Yes, Delete</button>
+            <a href="{{ path('employee_detail', { id: employee.id }) }}" class="button cancel_button">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
