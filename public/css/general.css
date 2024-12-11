@@ -135,7 +135,7 @@ a:hover {
 }
 
 .delete_button::before {
-    content: "🗑️";
+    content: "";
     color: var(--button-text-color);
     vertical-align: middle;
     margin-right: 0.3rem;

@@ -22,6 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
         addAccountContainer.style.display = "block";
     });
 
+    addAccountForm.querySelector(".delete_button").addEventListener("click", () => {
+        addAccountContainer.style.display = "none";
+        addAccountForm.reset();
+    });
+
     addAccountForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -69,29 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .catch((error) => console.error("Error fetching account data:", error));
         }
-        else if (e.target.classList.contains("delete_button")) {
-            const accountId = e.target.dataset.id;
+    });
 
-            if (!accountId) {
-                console.error("No account ID found for deletion.");
-                return;
-            }
-
-            fetch(`/api/accounts/${accountId}`, {
-                method: "DELETE",
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`Error deleting account: ${response.statusText}`);
-                    }
-
-                    const row = document.querySelector(`tr[data-id="${accountId}"]`);
-                    if (row) {
-                        row.remove();
-                    }
-                })
-                .catch((error) => console.error("Error deleting account:", error));
-        }
+    editForm.querySelector(".delete_button").addEventListener("click", () => {
+        editContainer.style.display = "none";
+        editForm.reset();
     });
 
     editForm.addEventListener("submit", (e) => {
@@ -125,8 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => console.error("Error updating account:", error));
     });
 
-    editForm.querySelector(".cancel_button").addEventListener("click", () => {
-        editContainer.style.display = "none";
-    });
+    accountsTable.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete_button")) {
+            const accountId = e.target.dataset.id;
 
+            fetch(`/api/accounts/${accountId}`, {
+                method: "DELETE",
+            })
+                .then(() => {
+                    const row = document.querySelector(`tr[data-id="${accountId}"]`);
+                    row.remove();
+                })
+                .catch((error) => console.error("Error deleting account:", error));
+        }
+    });
 });
