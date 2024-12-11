@@ -24,26 +24,6 @@ class AccountController extends AbstractController
         private EntityManagerInterface $entityManager,
     ) {}
 
-//    #[Route(path: '', name: 'list', methods: ['GET'])]
-//    public function list(Request $request): Response
-//    {
-//        $page = max((int) $request->query->get('page', 1), 1);
-//        $searchQuery = $request->query->get('search', null);
-//
-//        $paginationData = $this->accountService->getPaginatedAccounts($page, $searchQuery);
-//
-//        return $this->json([
-//            '_self' => $this->generateUrl('api_accounts_list'),
-//            'total' => $paginationData['totalItems'],
-//            'page' => $paginationData['currentPage'],
-//            'limit' => $paginationData['itemsPerPage'],
-//            'data' => array_map(
-//                fn(Account $account) => $this->accountFactory->toResource($account),
-//                $paginationData['accounts']
-//            ),
-//        ]);
-//    }
-
     #[Route(path: '', name: 'list_by_employee', methods: ['GET'])]
     public function listByEmployee(int $employeeId): Response
     {
