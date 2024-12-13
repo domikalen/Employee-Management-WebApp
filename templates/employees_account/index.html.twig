@@ -1,7 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Employee Accounts - {{ employee.name }}{% endblock %}
-
 {% block content %}
     <section>
         <h2>Accounts for {{ employee.name }}</h2>
@@ -12,12 +10,31 @@
                 {% endif %}
             {% endfor %}
         </p>
-        <div class="add-button-container">
-            <a href="{{ path('account_new', { 'employee_id': employee.id }) }}" class="button add_button">New</a>
+
+        <button class="add_button button">New Account</button>
+
+        <div id="add-account-container" style="display: none;">
+            <form id="add-account-form" data-create-url="{{ path('api_accounts_create', {'employeeId': employee.id}) }}">
+                <input type="text" name="name" placeholder="Account Name" required>
+                <input type="text" name="type" placeholder="Type" required>
+                <input type="datetime-local" name="expiration" placeholder="Expiration">
+                <button type="submit" class = "add_button button">Add Account</button>
+                <button type="button" class = "button delete_button">Cancel</button>
+            </form>
+        </div>
+
+        <div id="edit-account-container" style="display: none;">
+            <form id="edit-account-form" data-account-id="">
+                <input type="text" name="name" placeholder="Account Name" required>
+                <input type="text" name="type" placeholder="Type" required>
+                <input type="datetime-local" name="expiration" placeholder="Expiration">
+                <button type="submit" class="button add_button">Save Changes</button>
+                <button type="button" class="button delete_button">Cancel</button>
+            </form>
         </div>
 
         <div class="table-container">
-            <table>
+            <table id="accounts-table">
                 <thead>
                 <tr>
                     <th>Account Name</th>
@@ -29,18 +46,15 @@
                 </thead>
                 <tbody>
                 {% for account in accounts %}
-                    <tr>
+                    <tr data-id="{{ account.id }}">
                         <td>{{ account.name }}</td>
                         <td>{{ account.type }}</td>
                         <td>{{ account.expiration ? account.expiration|date('Y-m-d H:i:s') : 'Permanent' }}</td>
                         <td>
-                            <a href="{{ path('account_edit', { 'employee_id': employee.id, 'id': account.id }) }}" class="button edit_button">️</a>
+                            <button class="button edit_button" data-id="{{ account.id }}"></button>
                         </td>
                         <td>
-                            <form action="{{ path('account_delete', { 'id': account.id }) }}" method="post" style="display:inline;">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
-                                <button type="submit" class="button delete_button" onclick="return confirm('Are you sure you want to delete this account?');"></button>
-                            </form>
+                            <button class="button delete_button" data-id="{{ account.id }}">🗑️</button>
                         </td>
                     </tr>
                 {% else %}
@@ -52,4 +66,6 @@
             </table>
         </div>
     </section>
+
+    <script src="{{ asset('js/rest.js') }}"></script>
 {% endblock %}

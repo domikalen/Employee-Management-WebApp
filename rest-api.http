@@ -46,14 +46,14 @@ DELETE http://127.0.0.1:8000/api/employee/2
 
 ### Account API ###
 
-# Fetch the list of all accounts (GET)
-GET http://127.0.0.1:8000/api/accounts
-###
+## Fetch the list of all accounts (GET)
+#GET http://127.0.0.1:8000/api/accounts
+####
 # Get accounts associated with a specific employee (GET)
-GET http://127.0.0.1:8000/api/accounts/employee/1
+GET http://127.0.0.1:8000/api/1/accounts/
 ###
 # Create a new account (POST)
-POST http://127.0.0.1:8000/api/accounts
+POST http://127.0.0.1:8000/api/1/accounts
 Content-Type: application/json
 
 {
@@ -64,20 +64,20 @@ Content-Type: application/json
 }
 ###
 # Get account details by ID (GET)
-GET http://127.0.0.1:8000/api/accounts/2
+GET http://127.0.0.1:8000/api/1/accounts/2
 ###
 # Update an account by ID (PUT)
-PUT http://127.0.0.1:8000/api/accounts/2
+PUT http://127.0.0.1:8000/api/1/accounts/2
 Content-Type: application/json
 
 {
-  "name": "Starfighter Operations",
+  "name": "Starfighter Operations SOS",
   "type": "Tactical",
   "expiration": "2026-12-31T23:59:59"
 }
 ###
 # Delete an account by ID (DELETE)
-DELETE http://127.0.0.1:8000/api/accounts/2
+DELETE http://127.0.0.1:8000/api/1/accounts/2
 
 
 ### Role API ###

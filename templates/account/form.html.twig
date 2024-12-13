@@ -3,17 +3,45 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <section class="form-section">
-        <h2 class="form-title">{{ title }}</h2>
-        {{ form_start(form) }}
-
-        <div class="form-fields">
+    <section>
+        <h2>{{ title }}</h2>
+        {{ form_start(form, {'attr': {'id': 'create-account-form', 'data-create-url': path('api_accounts_create', {'employeeId': employee.id})}}) }}
+        <div>
             {{ form_row(form.name, {'label': 'Account Name'}) }}
             {{ form_row(form.type, {'label': 'Type'}) }}
             {{ form_row(form.expiration, {'label': 'Expiration (leave blank for Permanent)'}) }}
         </div>
-
-        <button type="submit" class="button ">{{ button_text }}</button>
+        <button type="submit">{{ button_text }}</button>
         {{ form_end(form) }}
+    </section>
+
+    <section>
+        <h3>Accounts</h3>
+        <table id="accounts-list">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Expiration</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.type }}</td>
+                    <td>{{ account.expiration|default('Permanent') }}</td>
+                    <td><a href="#" class="edit-account" data-id="{{ account.id }}">Edit</a></td>
+                    <td><a href="#" class="delete-account" data-id="{{ account.id }}">Delete</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No accounts found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </section>
 {% endblock %}
