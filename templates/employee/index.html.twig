@@ -8,49 +8,49 @@
         <div class="header-with-button">
             <h2>Employee List</h2>
             <div class="search-form-container">
-                {{ form_start(form, {'attr': {'class': 'search-form'}}) }}
+                {{ form_start(form, {'attr': {'class': 'search-form', 'data-turbo-frame': 'employees'}}) }}
                 {{ form_widget(form.query) }}
                 <button type="submit" class="button">Search</button>
                 {{ form_end(form) }}
             </div>
             <div class="add-button-container">
-                <a href="{{ path('employee_create') }}" class="button add_button">New</a>
+                <a href="{{ path('employee_create') }}" class="button add_button" data-turbo-frame="_top">New</a>
             </div>
         </div>
 
-        <ul>
-            {% for employee in employees %}
-                <li>
-                    <div class="employee-info">
-                        <img src="{{ employee.image }}" alt="{{ employee.name }}">
-                        <div class="employee-details">
-                            <strong>{{ employee.name }}:</strong>
-                            {% for role in employee.roles %}
-                                {% if role.isVisible %}
-                                    {{ role.title }}{% if not loop.last %}, {% endif %}
-                                {% endif %}
-                            {% endfor %}
+        <turbo-frame id="employees" data-controller="employee" data-employee-target="list">
+            <ul>
+                {% for employee in employees %}
+                    <li>
+                        <div class="employee-info">
+                            <img src="{{ asset(employee.image) }}" alt="{{ employee.name }}">
+                            <div class="employee-details">
+                                <strong>{{ employee.name }}:</strong>
+                                {% for role in employee.roles %}
+                                    {% if role.isVisible %}
+                                        {{ role.title }}{% if not loop.last %}, {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="employee-actions">
-                        <a class="button" href="{{ path('employee_detail', { id: employee.id }) }}">
-                            <span class="icon">📄</span> Detail
-                        </a>
-                        <a class="button" href="{{ path('employee_account', { id: employee.id }) }}">
-                            <span class="icon">🔑</span> Accounts
-                        </a>
-                        <a class="button edit_button" href="{{ path('employee_detail_edit', { 'id': employee.id }) }}"></a>
-                    </div>
-                </li>
-            {% else %}
-                <li>No employees available.</li>
-            {% endfor %}
-        </ul>
+                        <div class="employee-actions">
+                            <a class="button" href="{{ path('employee_detail', { id: employee.id }) }}" data-turbo-frame="_top">
+                                <span class="icon">📄</span> Detail
+                            </a>
+                            <a class="button" href="{{ path('employee_account', { id: employee.id }) }}" data-turbo-frame="_top">
+                                <span class="icon">🔑</span> Accounts
+                            </a>
+                            <a class="button edit_button" href="{{ path('employee_detail_edit', { id: employee.id }) }}" data-turbo-frame="_top"></a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li>No employees available.</li>
+                {% endfor %}
+            </ul>
 
-        <div class="pagination-container">
-            {{ pagination.render(pagination, 'employees', query) }}
-        </div>
-
-
+            <div class="pagination-container" data-employee-target="pagination">
+                {{ pagination.render(pagination, 'employees', query) }}
+            </div>
+        </turbo-frame>
     </section>
 {% endblock %}
