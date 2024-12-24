@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Default Title{% endblock %}</title>
+    {% block importmap %}
+        {{ importmap('app') }}
+    {% endblock %}
     <link rel="stylesheet" href="{{ asset('css/general.css') }}">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employees.css') }}">
@@ -11,10 +14,6 @@
     <link rel="stylesheet" href="{{ asset('css/employee_accounts.css') }}">
     <link rel="stylesheet" href="{{ asset('css/error.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <script src="{{ asset('js/modal.js') }}"></script>
-    <script src="{{ asset('js/dropdown.js') }}"></script>
-    <script src="{{ asset('js/autocomplete.js') }}"></script>
-
 </head>
 <body>
 <header>
@@ -31,8 +30,6 @@
             </ul>
         </div>
     </nav>
-
-
 </header>
 
 <main>
@@ -42,6 +39,11 @@
 <footer>
     <p>&copy; 2024 Evidence zaměstnanců</p>
 </footer>
+
+<div data-controller="employee" data-employee-target="modal" class="modal">
+    <div data-employee-target="modalContent" class="modal-content"></div>
+    <button data-action="employee#close" class="button">Close</button>
+</div>
 
 </body>
 </html>
